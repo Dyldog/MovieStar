@@ -21,6 +21,8 @@
     
     NSMutableArray *appFriends;
     NSMutableArray *facebookFriends;
+    
+    NSMutableArray *ratings;
 }
 
 - (void) updateWithWebserviceDict:(NSDictionary *)dict;
@@ -41,5 +43,7 @@
 
 @property (nonatomic, strong) NSMutableArray *appFriends;
 @property (nonatomic, strong) NSMutableArray *facebookFriends;
+
+@property (nonatomic, strong) NSMutableArray *ratings;
 
 @end

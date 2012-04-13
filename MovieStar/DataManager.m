@@ -18,6 +18,7 @@
 #define WS_URL_GETFRIENDS @"http://veritaswebsystems.com/MovieStar/MovieStar/GetFriendsForUser"
 #define WS_URL_GETUSERSFORFBFRIENDS @"http://veritaswebsystems.com/MovieStar/MovieStar/GetUsersForFriendsOnFaceBook"
 #define WS_URL_ADDFRIEND @"http://veritaswebsystems.com/MovieStar/MovieStar/AddFriendForUser"
+#define WS_URL_GETRATINGSFORUSER @"http://veritaswebsystems.com/MovieStar/MovieStar/GetRatingsByUser"
 
 #define TBDB_API_KEY @"cfb81c79f91f313fd87d4f457b114ec9"
 #define TMDB_URL_SEARCH [NSString stringWithFormat:@"http://api.themoviedb.org/2.1/Movie.search/en/json/%@/", TBDB_API_KEY]
@@ -465,6 +466,36 @@ static DataManager *sharedDataManager = nil;
     
     if ([self.delegate respondsToSelector:@selector(friendAdded:)]) {
         [self.delegate friendAdded:appUser.facebookID];
+    }
+}
+
+- (void) getRatingsForUser:(MSUser *)user {
+    if ((user != nil) && (currentUser != nil)) {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              currentUser.userID, 
+                              @"AuthId", 
+                              user.userID, 
+                              @"UserId", nil];
+        ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETRATINGSFORUSER andDict:dict];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(getRatingsForUserDidReceiveResponse:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void) getRatingsForUserDidReceiveResponse:(ASIHTTPRequest *)request {
+    NSString *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    NSArray *responseArray = [responseString JSONValue];
+    
+    NSMutableArray *userRatings = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *rating in responseArray) {
+        MSRating *userRating = [self ratingFromDict:rating];
+        [userRatings addObject:userRating];
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(userRatingsReceived:)]) {
+        [self.delegate userRatingsReceived:userRatings];
     }
 }
 

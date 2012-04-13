@@ -22,6 +22,25 @@
 @synthesize facebookFriends;
 @synthesize appFriends;
 
+@synthesize ratings;
+
+- (MSUser *) init {
+    if (self = [super init]) {
+        fbDict = nil;
+        wsDict = nil;
+        facebookID = nil;
+        userID = nil;
+        name = nil;
+        password = nil;
+        twitterID = nil;
+        facebookFriends = nil;
+        appFriends = nil;
+        ratings = nil;
+    }
+    
+    return self;
+}
+
 - (void) updateWithWebserviceDict:(NSDictionary *)dict {
     self.userID = [dict objectForKey:@"Id"];
     self.facebookID = [dict objectForKey:@"FaceBookId"];

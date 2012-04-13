@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieStarViewController.h"
 
-@interface ProfileViewController : UIViewController {
+@interface ProfileViewController : MovieStarViewController <MSDataManagerDelegate, UITableViewDataSource, UITableViewDelegate> {
     
     MSUser *_user;
     
-    IBOutlet UIImageView *_backgroundImageView;
     IBOutlet UIImageView *_profilePictureImageView;
     IBOutlet UILabel *_nameLabel;
     IBOutlet UILabel *_numMoviesRatedLabel;
@@ -25,7 +25,6 @@
 
 @property (nonatomic, strong) MSUser *user;
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) UIImageView *profilePictureImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *numMoviesRatedLabel;

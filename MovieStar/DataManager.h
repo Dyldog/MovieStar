@@ -30,6 +30,8 @@
 - (void) facebookFriendsReceived;
 - (void) appUsersReceived:(NSMutableArray *)users;
 - (void) friendAdded:(NSString *)fbID;
+- (void) userRatingsReceived:(NSMutableArray *)ratings;
+
 @end
 
 @class AppDelegate;
@@ -82,6 +84,9 @@
 
 - (void) addFriendWithFacebookID:(NSString *)fbID;
 - (void) addFriendWithFacebookIdDidReceiveResponse:(ASIHTTPRequest *)request;
+
+- (void) getRatingsForUser:(MSUser *)user;
+- (void) getRatingsForUserDidReceiveResponse:(ASIHTTPRequest *)request;
 
 - (MSRating *) ratingFromDict:(NSDictionary *)dict;
 - (MSMovie *) movieFromDict: (NSDictionary *)dict;
