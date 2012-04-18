@@ -26,7 +26,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    loginViewController = [[LoginViewController alloc] init];
+    loginViewController = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
     
     self.tabBarController = [[UITabBarController alloc] init];
     MovieViewController *movieViewController = [[MovieViewController alloc] init];
@@ -44,7 +44,7 @@
     [profileNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_profile.png"]];
     [profileNavController.tabBarItem setTitle:@"Profile"];
     
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:nil bundle:nil];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     [settingsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
                                              forBarMetrics:UIBarMetricsDefault];

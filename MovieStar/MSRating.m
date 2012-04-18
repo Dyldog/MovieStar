@@ -9,6 +9,6 @@
 #import "MSRating.h"
 
 @implementation MSRating
-@synthesize ratingID, movieID, userID, ratingLevel;
+@synthesize ratingID, movie, userID, ratingLevel;
 
 @end

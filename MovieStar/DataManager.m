@@ -312,7 +312,7 @@ static DataManager *sharedDataManager = nil;
                                 @"",
                                 [[NSNumber numberWithFloat:rating.ratingLevel] stringValue],
                                 @"RatingLevel",
-                                rating.movieID,
+                                rating.movie.wsID,
                                 @"MovieId",
                                 currentUser.userID,
                                 @"UserId", nil];
@@ -502,9 +502,10 @@ static DataManager *sharedDataManager = nil;
 - (MSRating *) ratingFromDict:(NSDictionary *)dict {
     MSRating *rating = [[MSRating alloc] init];
     rating.ratingID = [dict objectForKey:@"Id"];
-    rating.movieID = [dict objectForKey:@"MovieId"];
     rating.ratingLevel = [[dict objectForKey:@"RatingLevel"] floatValue];
     rating.userID = [dict objectForKey:@"UserId"];
+    
+    rating.movie = [self movieFromDict:[dict objectForKey:@"Movie"]];
     
     return rating;
 }

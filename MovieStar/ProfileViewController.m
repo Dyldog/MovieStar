@@ -7,6 +7,8 @@
 //
 
 #import "ProfileViewController.h"
+#import "SingleMovieViewController.h"
+#import "MSMovie.h"
 
 @interface ProfileViewController ()
 
@@ -29,7 +31,6 @@
         _user = user;
         
         if (_user == nil) {
-            _user = [[DataManager sharedManager] currentUser];
         }
     }
     return self;
@@ -40,9 +41,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.backgroundImageView.image = [UIImage imageNamed:@"background.png"];
+}
+
+- (void) reload {
+    if (self.user == nil) {
+        self.user = [[DataManager sharedManager] currentUser];
+    }
     
-    self.nameLabel.text = self.user.name;
-    
+    if (self.user != nil) {
+        self.nameLabel.text = self.user.name;
+        
+        [[DataManager sharedManager] setDelegate:self];
+        [[DataManager sharedManager] getRatingsForUser:self.user];
+    } else {
+        NSLog(@"Why you give me no user?");
+    }
 }
 
 - (void)viewDidUnload
@@ -54,9 +67,7 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [[DataManager sharedManager] setDelegate:self];
-    [[DataManager sharedManager] getRatingsForUser:self.user];
+    [self reload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -86,9 +97,17 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
                                       reuseIdentifier:@"Cell"];
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%.2f / 10", rating.ratingLevel];
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", rating.movieID];
+	cell.textLabel.text = [NSString stringWithFormat:@"%@", rating.movie.title];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f / 10", rating.ratingLevel];
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SingleMovieViewController *singleMovieController = [[SingleMovieViewController alloc] init];
+    [singleMovieController setMovie:[(MSRating *)[self.user.ratings objectAtIndex:indexPath.row] movie]];
+    [self.navigationController pushViewController:singleMovieController animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

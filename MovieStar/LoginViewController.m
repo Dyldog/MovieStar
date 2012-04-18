@@ -17,12 +17,8 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if ([self view] != nil) {
         // Custom initialization
-        [[self bannerImageView] setImage:[UIImage imageNamed:@"banner_ms.png"]];
-        
-        [[self facebookButton] setImage:[UIImage imageNamed:@"btn_login.png"] 
-                               forState:UIControlStateNormal];
         
     }
     return self;
@@ -42,6 +38,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [[self bannerImageView] setImage:[UIImage imageNamed:@"banner_ms.png"]];
+    
+    [[self facebookButton] setImage:[UIImage imageNamed:@"btn_login.png"] 
+                           forState:UIControlStateNormal];
+    
     [[DataManager sharedManager] setDelegate:self];
     if ([[DataManager sharedManager] autoLoginIfPossible]) {
         [self userWillLogin];

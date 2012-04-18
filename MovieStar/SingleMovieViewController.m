@@ -125,7 +125,7 @@
         MSRating *rating = [MSRating new];
         rating.ratingLevel = [taggerControl rating] * 2;
         rating.userID = [[DataManager sharedManager] currentUser].userID;
-        rating.movieID = movie.wsID;
+        rating.movie = movie;
         [[DataManager sharedManager] addRatingForMovie:rating];
         
         commentTextView = nil;

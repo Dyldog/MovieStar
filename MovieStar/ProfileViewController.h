@@ -22,6 +22,7 @@
 }
 
 - (id) initWithUser:(MSUser *)user;
+- (void) reload;
 
 @property (nonatomic, strong) MSUser *user;
 
