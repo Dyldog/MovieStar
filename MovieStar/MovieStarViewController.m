@@ -8,6 +8,7 @@
 
 #import "MovieStarViewController.h"
 #import "MSImageCell.h"
+#import "MSRatingCell.h"
 
 @implementation UINavigationBar (BackgroundImage)
 //This overridden implementation will patch up the NavBar with a custom Image instead of the title
@@ -101,9 +102,19 @@
     }
     cell.cellLabel.backgroundColor = [UIColor clearColor];
 	cell.cellLabel.text = [NSString stringWithFormat:@"Cell %d", indexPath.row];
+        
+    return cell;
+}
+
+- (MSRatingCell *) tableView:(UITableView *)tableView ratingCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MSRatingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RatingCell"];
     
-    NSLog(@"%@", cell);
-    
+    if (cell == nil) 
+    {
+        cell = [[MSRatingCell alloc] initWithStyle:UITableViewCellStyleDefault 
+                                  reuseIdentifier:@"RatingCell"];
+    }
+        
     return cell;
 }
 

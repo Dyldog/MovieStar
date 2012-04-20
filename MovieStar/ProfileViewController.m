@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "SingleMovieViewController.h"
 #import "MSMovie.h"
+#import "MSRatingCell.h"
 
 @interface ProfileViewController ()
 
@@ -90,16 +91,13 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MSRating *rating = [self.user.ratings objectAtIndex:indexPath.row];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    if (cell == nil) 
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle 
-                                      reuseIdentifier:@"Cell"];
-    }
-	cell.textLabel.text = [NSString stringWithFormat:@"%@", rating.movie.title];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2f / 10", rating.ratingLevel];
+    MSRatingCell *cell = (MSRatingCell *)[super tableView:tableView ratingCellForRowAtIndexPath:indexPath];
+	[cell setRating:rating];
     return cell;
+}
+
+- (float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CELL_HEIGHT;
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

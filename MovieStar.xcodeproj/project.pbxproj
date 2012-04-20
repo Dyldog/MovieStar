@@ -108,6 +108,7 @@
 		11D31BB414D297E3007E2DC0 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D31BA714D297E3007E2DC0 /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11D31BB514D297E3007E2DC0 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D31BA914D297E3007E2DC0 /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11D31BB614D297E3007E2DC0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D31BAD14D297E3007E2DC0 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		11EE0D25153FFD8400C9D884 /* MSRatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EE0D24153FFD8400C9D884 /* MSRatingCell.m */; };
 		11FC513F14DC8ABD00935FDC /* MSMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FC513E14DC8ABD00935FDC /* MSMovie.m */; };
 		11FC514414DC98BB00935FDC /* SingleMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FC514214DC98BB00935FDC /* SingleMovieViewController.m */; };
 		11FC514514DC98BB00935FDC /* SingleMovieViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 11FC514314DC98BB00935FDC /* SingleMovieViewController.xib */; };
@@ -268,6 +269,8 @@
 		11D31BAA14D297E3007E2DC0 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		11D31BAC14D297E3007E2DC0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		11D31BAD14D297E3007E2DC0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		11EE0D23153FFD8400C9D884 /* MSRatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSRatingCell.h; sourceTree = "<group>"; };
+		11EE0D24153FFD8400C9D884 /* MSRatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSRatingCell.m; sourceTree = "<group>"; };
 		11FC513D14DC8ABD00935FDC /* MSMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSMovie.h; sourceTree = "<group>"; };
 		11FC513E14DC8ABD00935FDC /* MSMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSMovie.m; sourceTree = "<group>"; };
 		11FC514114DC98BB00935FDC /* SingleMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleMovieViewController.h; sourceTree = "<group>"; };
@@ -340,6 +343,8 @@
 				111E087A1492F33B0027423C /* DataManager.m */,
 				11A9972114E7AE0F002E3819 /* MSImageCell.h */,
 				11A9972214E7AE10002E3819 /* MSImageCell.m */,
+				11EE0D23153FFD8400C9D884 /* MSRatingCell.h */,
+				11EE0D24153FFD8400C9D884 /* MSRatingCell.m */,
 				11D31B8F14D29675007E2DC0 /* MSUser.h */,
 				11D31B9014D29675007E2DC0 /* MSUser.m */,
 				11FC513D14DC8ABD00935FDC /* MSMovie.h */,
@@ -808,6 +813,7 @@
 				114CC41814FA271C000C578E /* AddFriendsViewController.m in Sources */,
 				11AD1D281515B93D00432981 /* ProfileViewController.m in Sources */,
 				11292A35152E885300AE45F3 /* SettingsViewController.m in Sources */,
+				11EE0D25153FFD8400C9D884 /* MSRatingCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,7 +857,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: hugh waters";
-				CURRENT_PROJECT_VERSION = 1.1.3;
+				CURRENT_PROJECT_VERSION = 1.1.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -918,7 +924,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.3;
+				CURRENT_PROJECT_VERSION = 1.1.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -939,7 +945,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.3;
+				CURRENT_PROJECT_VERSION = 1.1.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

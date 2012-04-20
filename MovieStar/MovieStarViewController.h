@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHUD.h"
 @class MSImageCell;
+@class MSRatingCell;
 @interface MovieStarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MSDataManagerDelegate> {
     
     UIImageView *_backgroundImageView;
@@ -18,6 +19,7 @@
 }
 
 - (MSImageCell *) tableView:(UITableView *)tableView imageCellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (MSRatingCell *) tableView:(UITableView *)tableView ratingCellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 @property (nonatomic, strong) MBProgressHUD *loadingView;
