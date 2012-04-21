@@ -113,7 +113,8 @@
                   forControlEvents:UIControlEventTouchUpInside];
             movieButton.frame = CGRectMake(((COVER_WIDTH + 1) * i), 0, COVER_WIDTH, COVER_HEIGHT);
             
-            EGOImageView *movieImageView = [[EGOImageView alloc] initWithFrame:movieButton.bounds];
+//            EGOImageView *movieImageView = [[EGOImageView alloc] initWithFrame:movieButton.bounds];
+            EGOImageView *movieImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"DefaultMovieImage.png"]];
             movieImageView.delegate = movieButton;
             [movieImageView performSelectorOnMainThread:@selector(setImageURL:) withObject:[NSURL URLWithString:movie.imageURL] waitUntilDone:NO];
             [movieButton addSubview:movieImageView];
@@ -123,9 +124,11 @@
                 
                 UILabel *movieTitleLabel = [UILabel new];
                 movieTitleLabel.backgroundColor = [UIColor clearColor];
-                movieTitleLabel.frame = movieButton.bounds;
+                CGRect labelRect = CGRectMake(0, movieButton.frame.size.height - 50, movieButton.frame.size.width, 50);
+                movieTitleLabel.frame = labelRect;
                 movieTitleLabel.numberOfLines = 0;
                 movieTitleLabel.textAlignment = UITextAlignmentCenter;
+                movieTitleLabel.font = [UIFont systemFontOfSize:13];
                 movieTitleLabel.text = [NSString stringWithFormat:@"%@ (%@)", movie.title, movie.releaseYear];
                 [movieButton addSubview:movieTitleLabel];
 
