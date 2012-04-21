@@ -13,6 +13,8 @@
     
     LoginViewController *loginViewController;
     
+    NSInteger previousSelectedTabIndex;
+    
 }
 
 @property (strong, nonatomic) UIWindow *window;

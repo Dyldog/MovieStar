@@ -37,9 +37,9 @@
     
     coverImageView.backgroundColor = [UIColor greenColor];
     [coverImageView setPlaceholderImage:[UIImage imageNamed:@"DefaultPosterImage.png"]];
-    coverImageView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
-    coverImageView.layer.shadowOpacity = 0.8;
-    coverImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+//    coverImageView.layer.shadowOffset = CGSizeMake(0.0, 2.0);
+//    coverImageView.layer.shadowOpacity = 0.8;
+//    coverImageView.layer.shadowColor = [UIColor blackColor].CGColor;
     
 	ratingControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(130, 96) 
                                                                  dotImage:[UIImage imageNamed:@"star_title_hole.png"] 
