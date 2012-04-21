@@ -15,11 +15,13 @@
 
 @synthesize rating = _rating;
 
-- (id)initWithLocation:(CGPoint)location dotImage:(UIImage *)dotImage starImage:(UIImage *)starImage
+- (id)initWithLocation:(CGPoint)location dotImage:(UIImage *)dotImage starImage:(UIImage *)starImage spacing:(NSInteger)spacing
 {
-	if (self = [self initWithFrame:CGRectMake(location.x, location.y, (starImage.size.width * 5) + 15, starImage.size.height)])
+	if (self = [self initWithFrame:CGRectMake(location.x, location.y, (starImage.size.width * RATING_MAX) + (spacing * RATING_MAX), starImage.size.height)])
 	{
 		_rating = 0;
+        _spacing = spacing;
+        
 		self.backgroundColor = [UIColor clearColor];
 		self.opaque = NO;
 		
@@ -46,7 +48,7 @@
 		else
 			[@"★" drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:22]];
 			
-		currPoint.x += _star.size.width + 3;
+		currPoint.x += _star.size.width + _spacing;
 	}
 	
 	NSInteger remaining = RATING_MAX - _rating;
@@ -57,7 +59,7 @@
 			[_dot drawAtPoint:currPoint];
 		else
 			[@" •" drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:22]];
-		currPoint.x += _star.size.width + 3;
+		currPoint.x += _star.size.width + _spacing;
 	}
 }
 
