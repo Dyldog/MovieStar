@@ -555,7 +555,14 @@ static DataManager *sharedDataManager = nil;
         [dateFormatter setDateFormat:@"yyyy"];
     } movie.releaseYear = [dateFormatter stringFromDate:movie.releaseDate];
     
-    movie.imageURL = [[[[dict objectForKey:@"posters"] objectAtIndex:0] objectForKey:@"image"] objectForKey:@"url"];
+    NSArray *posters = [dict objectForKey:@"posters"];
+    if( posters != nil && [posters count]) {
+        NSDictionary *posterImageData = [[posters objectAtIndex:0] objectForKey:@"image"];
+        if ([posterImageData count]) {
+            movie.imageURL = [posterImageData objectForKey:@"url"];
+        }
+        
+    }
     
     return movie;
 }
