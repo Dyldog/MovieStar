@@ -8,12 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "MovieStarViewController.h"
+#import "EGORefreshTableHeaderView.h"
 
-@interface MovieViewController : MovieStarViewController <UITableViewDelegate, UITableViewDataSource, MSDataManagerDelegate, UISearchBarDelegate> {
+@interface MovieViewController : MovieStarViewController <UITableViewDelegate, UITableViewDataSource, MSDataManagerDelegate, UISearchBarDelegate, EGORefreshTableHeaderDelegate> {
     
     IBOutlet UISearchBar *_searchBar;
     
     NSMutableArray *_searchResults;
+    
+    EGORefreshTableHeaderView *_refreshHeaderView;
+    BOOL _reloading;
+    NSDate *updatedDate;
+    
+    BOOL _topMoviesReceived;
+    BOOL _latestMoviesReceived;
     
 }
 
