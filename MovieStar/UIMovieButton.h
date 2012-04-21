@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGOImageView.h"
 
-@interface UIMovieButton : UIButton {
+@interface UIMovieButton : UIButton <EGOImageViewDelegate> {
     
     MSMovie *movie;
     

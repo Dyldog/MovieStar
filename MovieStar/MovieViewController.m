@@ -113,11 +113,12 @@
                   forControlEvents:UIControlEventTouchUpInside];
             movieButton.frame = CGRectMake(((COVER_WIDTH + 1) * i), 0, COVER_WIDTH, COVER_HEIGHT);
             
-            EGOImageView *movieImageView = [[EGOImageView alloc] initWithFrame:movieButton.frame];
-            [movieImageView setImageURL:[NSURL URLWithString:movie.imageURL]];
+            EGOImageView *movieImageView = [[EGOImageView alloc] initWithFrame:movieButton.bounds];
+            movieImageView.delegate = movieButton;
+            [movieImageView performSelectorOnMainThread:@selector(setImageURL:) withObject:[NSURL URLWithString:movie.imageURL] waitUntilDone:NO];
             [movieButton addSubview:movieImageView];
             
-            //if ([movie.imageURL isEqualToString:@""]) {
+            if ([movie.imageURL isEqualToString:@""]) {
                 movieButton.backgroundColor = [UIColor redColor];
                 
                 UILabel *movieTitleLabel = [UILabel new];
@@ -128,7 +129,7 @@
                 movieTitleLabel.text = [NSString stringWithFormat:@"%@ (%@)", movie.title, movie.releaseYear];
                 [movieButton addSubview:movieTitleLabel];
 
-            //}
+            }
             
             [scrollView addSubview:movieButton];
             [scrollView setContentSize:CGSizeMake(((COVER_WIDTH + 1) * (i + 1)) - 1, CELL_HEIGHT)];

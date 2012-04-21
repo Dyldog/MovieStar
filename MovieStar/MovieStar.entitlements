@@ -7,6 +7,6 @@
 		<string>$(AppIdentifierPrefix)com.ThoseGuys.MovieStar</string>
 	</array>
 	<key>get-task-allow</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

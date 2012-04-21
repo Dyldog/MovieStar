@@ -7,8 +7,8 @@
 //
 
 #import "UIMovieButton.h"
-
-@implementation UIMovieButton
+@implementation UIMovieButton 
 @synthesize movie;
+
 
 @end

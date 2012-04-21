@@ -99,33 +99,6 @@
       <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
-         condition = "&quot;[dict objectForKey:@&quot;posters&quot;] == nil&quot;"
-         continueAfterRunningActions = "No"
-         filePath = "MovieStar/DataManager.m"
-         timestampString = "356435774.767989"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "557"
-         endingLineNumber = "557"
-         landmarkName = "-movieFromTMDBDict:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "MovieStar/EGO/EGOImageView/EGOImageView.m"
-         timestampString = "355376424.684695"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "91"
-         endingLineNumber = "91"
-         landmarkName = "-imageLoaderDidLoad:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MovieStar/FriendsViewController.m"
          timestampString = "356436456.076252"
@@ -137,16 +110,55 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MovieStar/MovieViewController.m"
+         timestampString = "356661780.065334"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "122"
+         endingLineNumber = "122"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MovieStar/DataManager.m"
-         timestampString = "356517775.30626"
+         timestampString = "356659591.263671"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "521"
-         endingLineNumber = "521"
-         landmarkName = "-movieFromDict:"
+         startingLineNumber = "194"
+         endingLineNumber = "194"
+         landmarkName = "-getLatestMoviesDidReceiveResponse:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MovieStar/DataManager.m"
+         timestampString = "356670710.406392"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "538"
+         endingLineNumber = "538"
+         landmarkName = "-movieFromTMDBDict:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MovieStar/EGO/EGOImageView/EGOImageView.m"
+         timestampString = "356660392.608427"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "97"
+         endingLineNumber = "97"
+         landmarkName = "-imageLoaderDidFailToLoad:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -154,12 +166,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "MovieStar/DataManager.m"
-         timestampString = "356517877.03976"
+         timestampString = "356667787.344043"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "508"
-         endingLineNumber = "508"
-         landmarkName = "-ratingFromDict:"
+         startingLineNumber = "285"
+         endingLineNumber = "285"
+         landmarkName = "-addMovie:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MovieStar/DataManager.m"
+         timestampString = "356670272.194449"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "336"
+         endingLineNumber = "336"
+         landmarkName = "-addRatingDidReceiveResponse:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "MovieStar/DataManager.m"
+         timestampString = "356670794.676951"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
+         landmarkName = "-addRatingForMovie:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

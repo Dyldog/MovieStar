@@ -278,7 +278,7 @@ static DataManager *sharedDataManager = nil;
                                 @"AvgRating",
                                 @"0",
                                 @"NoOfRating",
-                                [NSString stringWithFormat:@"\/Date(%d+1000)\/", ([movie.releaseDate timeIntervalSince1970] * -1000)],
+                                [NSString stringWithFormat:@"/Date(%qi+1000)/", ([movie.releaseDate timeIntervalSince1970] * 1000)],
                                 @"Year",
                                 nil];
     
@@ -308,8 +308,8 @@ static DataManager *sharedDataManager = nil;
 
 - (void) addRatingForMovie:(MSRating *)rating {
     NSDictionary *ratingDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                rating.comment,
                                 @"Comment",
-                                @"",
                                 [[NSNumber numberWithFloat:rating.ratingLevel] stringValue],
                                 @"RatingLevel",
                                 rating.movie.wsID,
@@ -353,7 +353,7 @@ static DataManager *sharedDataManager = nil;
     if (([responseString rangeOfString:@"<html>"].length == 0) && (responseString != nil)) {
         NSArray *responseArray = [responseString JSONValue];
         NSMutableArray *moviesArray = [[NSMutableArray alloc] init];
-        if (moviesArray != nil) {
+        if (responseArray != nil) {
             for (NSDictionary *movieDict in responseArray) {
                 MSMovie *movie = [self movieFromTMDBDict:movieDict];
                 [moviesArray addObject:movie];
@@ -504,6 +504,7 @@ static DataManager *sharedDataManager = nil;
     rating.ratingID = [dict objectForKey:@"Id"];
     rating.ratingLevel = [[dict objectForKey:@"RatingLevel"] floatValue];
     rating.userID = [dict objectForKey:@"UserId"];
+    rating.comment = [dict objectForKey:@"Comment"];
     
     rating.movie = [self movieFromDict:[dict objectForKey:@"Movie"]];
     
@@ -517,7 +518,7 @@ static DataManager *sharedDataManager = nil;
     movie.imageURL = [dict objectForKey:@"Image"];
     movie.title = [dict objectForKey:@"Name"];
     movie.numRatings = [[dict objectForKey:@"NoOfRating"] intValue];
-    movie.releaseDate = [self dateFromJSON:[dict objectForKey:@"Year"]];
+    movie.releaseDate = [self mfDateFromDotNetJSONString:[dict objectForKey:@"Year"]];
     movie.averageRating = [[dict objectForKey:@"AvgRating"] floatValue];
     
     static NSDateFormatter *dateFormatter = nil;
@@ -567,6 +568,33 @@ static DataManager *sharedDataManager = nil;
                     dateByAddingTimeInterval:offset];
     
     return dateDate;
+}
+
+- (NSDate *)mfDateFromDotNetJSONString:(NSString *)string {
+    if (string != nil) {
+        static NSRegularExpression *dateRegEx = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            dateRegEx = [[NSRegularExpression alloc] initWithPattern:@"^\\/date\\((-?\\d++)(?:([+-])(\\d{2})(\\d{2}))?\\)\\/$" options:NSRegularExpressionCaseInsensitive error:nil];
+        });
+        NSTextCheckingResult *regexResult = [dateRegEx firstMatchInString:string options:0 range:NSMakeRange(0, [string length])];
+        
+        if (regexResult) {
+            // milliseconds
+            NSTimeInterval seconds = [[string substringWithRange:[regexResult rangeAtIndex:1]] doubleValue] / 1000.0;
+            // timezone offset
+            if ([regexResult rangeAtIndex:2].location != NSNotFound) {
+                NSString *sign = [string substringWithRange:[regexResult rangeAtIndex:2]];
+                // hours
+                seconds += [[NSString stringWithFormat:@"%@%@", sign, [string substringWithRange:[regexResult rangeAtIndex:3]]] doubleValue] * 60.0 * 60.0;
+                // minutes
+                seconds += [[NSString stringWithFormat:@"%@%@", sign, [string substringWithRange:[regexResult rangeAtIndex:4]]] doubleValue] * 60.0;
+            }
+            
+            return [NSDate dateWithTimeIntervalSince1970:seconds];
+        }
+    }
+    return nil;
 }
 
 @end

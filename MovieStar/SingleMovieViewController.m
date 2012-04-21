@@ -126,6 +126,10 @@
         rating.ratingLevel = [taggerControl rating] * 2;
         rating.userID = [[DataManager sharedManager] currentUser].userID;
         rating.movie = movie;
+        rating.comment = commentTextView.text;
+        if (rating.comment == nil) {
+            rating.comment = @"";
+        }
         [[DataManager sharedManager] addRatingForMovie:rating];
         
         commentTextView = nil;

@@ -94,6 +94,7 @@
 
 
 - (NSDate *) dateFromJSON:(NSString *)date;
+- (NSDate *)mfDateFromDotNetJSONString:(NSString *)string;
 
 @property (nonatomic, strong) Facebook *facebook;
 @property (nonatomic, strong) AppDelegate *appDelegate;

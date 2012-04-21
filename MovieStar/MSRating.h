@@ -14,6 +14,7 @@
     MSMovie *movie;
     NSString *userID;
     float ratingLevel;
+    NSString *comment;
     
 }
 
@@ -21,5 +22,6 @@
 @property (nonatomic, strong) MSMovie *movie;
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic) float ratingLevel;
+@property (nonatomic, strong) NSString *comment;
 
 @end
