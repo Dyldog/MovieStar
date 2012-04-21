@@ -865,7 +865,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: hugh waters";
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.1.6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -932,7 +932,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.1.6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -953,7 +953,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.5;
+				CURRENT_PROJECT_VERSION = 1.1.6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
