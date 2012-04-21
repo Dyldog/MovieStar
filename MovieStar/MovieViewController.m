@@ -42,8 +42,19 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.tableView.scrollEnabled = NO;   
+    self.tableView.scrollEnabled = YES;   
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    if (_refreshHeaderView == nil) {
+		
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
+		view.delegate = self;
+		[self.tableView addSubview:view];
+		_refreshHeaderView = view;
+	}
+	
+	//  update the last update date
+	[_refreshHeaderView refreshLastUpdatedDate];
 }
 
 - (void)viewDidUnload
@@ -54,7 +65,9 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    [self reload];
+    if( updatedDate == nil ) {
+        [self reload];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -182,13 +195,24 @@
 }
 
 - (void) topMoviesReceived {
+    _topMoviesReceived = YES;
     [self.tableView reloadData];
     [self hideLoadingViewIfPossible];
+    updatedDate = [NSDate date];
+
+    if( _topMoviesReceived && _latestMoviesReceived ) {
+        [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
+    }
 }
 
 - (void) latestMoviesReceived {
+    _latestMoviesReceived = YES;
     [self.tableView reloadData];
     [self hideLoadingViewIfPossible];
+    updatedDate = [NSDate date];
+    if( _topMoviesReceived && _latestMoviesReceived ) {
+        [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
+    }
 }
 
 - (void) searchResultsReceived:(NSMutableArray *)results {
@@ -208,6 +232,9 @@
 }
 
 - (void) reload {
+    _topMoviesReceived = NO;
+    _latestMoviesReceived = NO;
+    
     [[DataManager sharedManager] setDelegate:self];
     [[DataManager sharedManager] getTopMovies];
     [[DataManager sharedManager] getLatestMovies];
@@ -220,5 +247,61 @@
     if ([[DataManager sharedManager] topMovies] != nil && [[DataManager sharedManager] latestMovies] != nil) {
         [self.loadingView hide:YES];
     }
+}
+
+#pragma mark -
+#pragma mark Data Source Loading / Reloading Methods
+
+- (void)reloadTableViewDataSource{
+	
+	//  should be calling your tableviews data source model to reload
+	//  put here just for demo
+	_reloading = YES;
+	[self reload];
+}
+
+- (void)doneLoadingTableViewData{
+	
+	//  model should call this when its done loading
+	_reloading = NO;
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+	
+}
+
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
+	
+	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+	
+	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+	
+}
+
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+	
+	[self reloadTableViewDataSource];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+	
+	return _reloading; // should return if data source model is reloading
+	
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+	
+	return [NSDate date]; // should return date data source was last changed
+	
 }
 @end
