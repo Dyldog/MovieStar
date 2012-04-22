@@ -26,6 +26,7 @@
     IBOutlet UIView *taggerControlHolder;
     JSFavStarControl *taggerControl;
     IBOutlet UIButton *tagButton;
+    UIImageView *taggerBackgroundImageView;
     IBOutlet UIImageView *commentsHeaderBGImageView;
     IBOutlet UILabel *commentsHeaderLabel;
     
@@ -37,5 +38,6 @@
 - (IBAction)tagButtonPressed:(id)sender;
 - (IBAction)commentButtonTapped:(id)sender;
 - (void) reload;
+- (IBAction)imdbButtonTapped:(id)sender;
 
 @end

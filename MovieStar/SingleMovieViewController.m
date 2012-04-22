@@ -7,6 +7,7 @@
 //
 
 #import "SingleMovieViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation SingleMovieViewController
 
@@ -35,19 +36,26 @@
     // Do any additional setup after loading the view from its nib.
     
     coverImageView.backgroundColor = [UIColor greenColor];
+    [coverImageView setPlaceholderImage:[UIImage imageNamed:@"DefaultPosterImage.png"]];
     
 	ratingControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(130, 96) 
                                                                  dotImage:[UIImage imageNamed:@"star_title_hole.png"] 
-                                                                starImage:[UIImage imageNamed:@"star_title.png"]];
+                                                                starImage:[UIImage imageNamed:@"star_title.png"] spacing:7];
     [ratingControl setUserInteractionEnabled:NO];
 	//[rating addTarget:self action:@selector(updateRating:) forControlEvents:UIControlEventValueChanged];
     [scrollView addSubview:ratingControl];
     
-    taggerControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(60, 20) 
-                                                      dotImage:[UIImage imageNamed:@"star_title_hole.png"] 
-                                                     starImage:[UIImage imageNamed:@"star_title.png"]];
+    taggerControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(20, 18) 
+                                                      dotImage:[UIImage imageNamed:@"star_hole.png"] 
+                                                     starImage:[UIImage imageNamed:@"star.png"] spacing:12];
 	//[taggerControl addTarget:self action:@selector(updateRating:) forControlEvents:UIControlEventValueChanged];
+    UIImage *backgroundImage = [UIImage imageNamed:@"cutout.png"];
+    taggerBackgroundImageView = [[UIImageView alloc] initWithImage:backgroundImage];
+
+    [taggerControlHolder addSubview:taggerBackgroundImageView];
+    
     [taggerControlHolder addSubview:taggerControl];
+    
     [tagButton setBackgroundImage:[UIImage imageNamed:@"btn_tag.png"] 
                          forState:UIControlStateNormal];
     
@@ -84,11 +92,11 @@
         [UIView animateWithDuration:0.5 
                          animations:^{
                              CGRect taggerViewFrame = taggerControlHolder.frame;
-                             taggerViewFrame.size.height = 127;
+                             taggerViewFrame.size.height = 150;
                              taggerControlHolder.frame = taggerViewFrame;
                              
                              CGRect bottomViewFrame = bottomView.frame;
-                             bottomViewFrame.origin.y = taggerControlHolder.frame.origin.y + 127;
+                             bottomViewFrame.origin.y = taggerControlHolder.frame.origin.y + 150;
                              bottomView.frame = bottomViewFrame;
                              
                              scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, 
@@ -100,19 +108,26 @@
         [taggerControl setUserInteractionEnabled:NO];
         
         [taggerControl removeFromSuperview];
+        [taggerBackgroundImageView removeFromSuperview];
         
         CGRect taggerFrame = taggerControl.frame;
-        taggerFrame.origin.y = coverImageView.frame.origin.y + coverImageView.frame.size.height + 10;
-        taggerFrame.origin.x = 160 - (taggerFrame.size.width / 2);
+        taggerFrame.origin.x = 20.0;
+        taggerFrame.origin.y = taggerControlHolder.frame.origin.y + 18.0;
         taggerControl.frame = taggerFrame;
         
+        CGRect taggerBackgroundFrame = taggerBackgroundImageView.frame;
+        taggerBackgroundFrame.origin.x = 0.0;
+        taggerBackgroundFrame.origin.y = taggerControlHolder.frame.origin.y;
+        taggerBackgroundImageView.frame = taggerBackgroundFrame;
+        
+        [scrollView addSubview:taggerBackgroundImageView];
         [scrollView addSubview:taggerControl];
         
         [UIView animateWithDuration:0.5 
                          animations:^{
                              
                              CGRect bottomViewFrame = bottomView.frame;
-                             bottomViewFrame.origin.y = taggerControl.frame.origin.y + taggerControl.frame.size.height + 10;
+                             bottomViewFrame.origin.y = taggerBackgroundImageView.frame.origin.y + taggerBackgroundImageView.frame.size.height + 10;
                              bottomView.frame = bottomViewFrame;
                              
                              scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, 
@@ -225,11 +240,18 @@
     [self.loadingView show:YES];
 }
 
+- (IBAction)imdbButtonTapped:(id)sender {
+    NSURL *imdbURL = [NSURL URLWithString:movie.imdbID];
+    if( imdbURL ) {
+        [[UIApplication sharedApplication] openURL:imdbURL];
+    }
+}
+
 - (void) updateMovieInfo {
     if ([self view] != nil) {
         titleLabel.text = movie.title;
         [coverImageView setImageURL:[NSURL URLWithString:movie.imageURL]];
-        yearLabel.text = [NSString stringWithFormat:@"%@", movie.releaseYear];
+        yearLabel.text = [NSString stringWithFormat:@"(%@)", movie.releaseYear];
         [ratingControl setRating:(int)(movie.averageRating/2)];
     }
 }

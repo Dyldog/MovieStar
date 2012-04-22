@@ -11,6 +11,7 @@
 #import "MovieViewController.h"
 #import "LoginViewController.h"
 #import "FriendsViewController.h"
+#import "TagViewController.h"
 #import "ProfileViewController.h"
 #import "SettingsViewController.h"
 
@@ -33,10 +34,19 @@
     UINavigationController *movieNavController = [[UINavigationController alloc] initWithRootViewController:movieViewController];
     [movieNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
                                                   forBarMetrics:UIBarMetricsDefault];
+    
     FriendsViewController *friendsViewController = [[FriendsViewController alloc] init];
     UINavigationController *friendsNavController = [[UINavigationController alloc] initWithRootViewController:friendsViewController];
     [friendsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
                                              forBarMetrics:UIBarMetricsDefault];
+
+    TagViewController *tagViewController =[[TagViewController alloc] initWithNibName:nil bundle:nil];
+    UINavigationController *tagNavController = [[UINavigationController alloc] initWithRootViewController:tagViewController];
+    [tagNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
+                                         forBarMetrics:UIBarMetricsDefault];
+    [tagNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_tag.png"]];
+    [tagNavController.tabBarItem setTitle:@"Tag"];
+
     ProfileViewController *profileViewController =[[ProfileViewController alloc] initWithUser:nil];
     UINavigationController *profileNavController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
     [profileNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
@@ -53,8 +63,45 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:
                                              movieNavController, 
                                              friendsNavController,
+                                            tagNavController,
                                              profileNavController,
                                              settingsNavController, nil];
+    
+    UIImageView *customTabBarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_bar.png"]];
+    [customTabBarImageView setUserInteractionEnabled:NO];
+    CGRect customTabBarFrame = customTabBarImageView.frame;
+    customTabBarFrame.origin.y -= 15;
+    [customTabBarImageView setFrame:customTabBarFrame];
+    
+    UIImageView *tab1ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_movies.png"] highlightedImage:[UIImage imageNamed:@"tab_movies.png"]];
+    
+    UIImageView *tab2ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_friends.png"] highlightedImage:[UIImage imageNamed:@"tab_friends.png"]];
+    CGRect tab2Frame = tab1ImageView.frame;
+    tab2Frame.origin.x += tab2Frame.size.width;
+    [tab2ImageView setFrame:tab2Frame];
+    
+    UIImageView *tab3ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_tag.png"] highlightedImage:[UIImage imageNamed:@"tab_tag.png"]];
+    CGRect tab3Frame = tab2ImageView.frame;
+    tab3Frame.origin.x += tab3Frame.size.width;
+    [tab3ImageView setFrame:tab3Frame];
+    
+    UIImageView *tab4ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_profile.png"] highlightedImage:[UIImage imageNamed:@"tab_profile.png"]];
+    CGRect tab4Frame = tab3ImageView.frame;
+    tab4Frame.origin.x += tab4Frame.size.width;
+    [tab4ImageView setFrame:tab4Frame];
+    
+    UIImageView *tab5ImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_settings.png"] highlightedImage:[UIImage imageNamed:@"tab_settings.png"]];
+    CGRect tab5Frame = tab4ImageView.frame;
+    tab5Frame.origin.x += tab5Frame.size.width;
+    [tab5ImageView setFrame:tab5Frame];    
+    
+    [customTabBarImageView addSubview:tab1ImageView];
+    [customTabBarImageView addSubview:tab2ImageView];
+    [customTabBarImageView addSubview:tab3ImageView];
+    [customTabBarImageView addSubview:tab4ImageView];
+    [customTabBarImageView addSubview:tab5ImageView];
+    
+//    [self.tabBarController.tabBar addSubview:customTabBarImageView];
     
     self.window.rootViewController = self.loginViewController;
     [self.window makeKeyAndVisible];
@@ -112,19 +159,19 @@
     return [[[DataManager sharedManager] facebook] handleOpenURL:url]; 
 }
 
-/*
 // Optional UITabBarControllerDelegate method.
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
+    
+    previousSelectedTabIndex = [tabBarController selectedIndex];
 }
-*/
 
-/*
+
 // Optional UITabBarControllerDelegate method.
 - (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed
 {
 }
-*/
+
 
 - (void) userDidLogin {
     

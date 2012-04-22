@@ -30,9 +30,13 @@
     if (self) {
         // Custom initialization
         _user = user;
-        
         if (_user == nil) {
         }
+        
+        NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", _user.facebookID]; 
+        [_profilePictureImageView setImageURL:[NSURL URLWithString:urlString]];
+        [_profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_profilePictureImageView setClipsToBounds:YES];
     }
     return self;
 }
