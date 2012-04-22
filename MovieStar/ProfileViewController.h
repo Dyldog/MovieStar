@@ -13,7 +13,7 @@
     
     MSUser *_user;
     
-    IBOutlet UIImageView *_profilePictureImageView;
+    IBOutlet EGOImageView *_profilePictureImageView;
     IBOutlet UILabel *_nameLabel;
     IBOutlet UILabel *_numMoviesRatedLabel;
     IBOutlet UISegmentedControl *_tagModeSegmentedControl;

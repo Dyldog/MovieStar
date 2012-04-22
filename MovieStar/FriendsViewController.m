@@ -82,7 +82,7 @@
     MSUser *friend = [[[DataManager sharedManager] currentUser].appFriends objectAtIndex:indexPath.row];
     MSImageCell *cell = [super tableView:tableView imageCellForRowAtIndexPath:indexPath];
     [cell.egoImageView setFrame:CGRectMake(0, 0, 44, 44)];
-    [cell.egoImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", friend.facebookID]]];
+    [cell.egoImageView setImageURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=square", friend.facebookID]]];
     
     CGRect labelFrame = cell.cellLabel.frame;
     labelFrame.origin.x = cell.egoImageView.frame.origin.x + cell.egoImageView.frame.size.width + 10;
