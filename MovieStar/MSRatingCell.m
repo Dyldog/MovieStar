@@ -51,6 +51,7 @@
         userRatingControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(labelFrame.origin.x, yearLabelFrame.origin.y + yearLabelFrame.size.height) 
                                                           dotImage:[UIImage imageNamed:@"star_comments_hole.png"] 
                                                          starImage:[UIImage imageNamed:@"star_comments.png"] spacing:3];
+        [userRatingControl setUserInteractionEnabled:NO];
         [self.contentView addSubview:userRatingControl];
         
         averageRatingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -70,6 +71,7 @@
         averageRatingControl = [[JSFavStarControl alloc] initWithLocation:CGPointMake(labelFrame.origin.x, averageLabelFrame.origin.y + averageLabelFrame.size.height) 
                                                               dotImage:[UIImage imageNamed:@"star_comments_hole.png"] 
                                                              starImage:[UIImage imageNamed:@"star_comments.png"] spacing:3];
+        [averageRatingControl setUserInteractionEnabled:NO];
         [self.contentView addSubview:averageRatingControl];
     }
     return self;

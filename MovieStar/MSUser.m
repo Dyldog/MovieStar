@@ -24,6 +24,8 @@
 
 @synthesize ratings;
 
+@synthesize relationshipType;
+
 - (MSUser *) init {
     if (self = [super init]) {
         fbDict = nil;
@@ -36,6 +38,7 @@
         facebookFriends = nil;
         appFriends = nil;
         ratings = nil;
+        relationshipType = USER_UNDEFINED;
     }
     
     return self;

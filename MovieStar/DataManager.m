@@ -350,13 +350,16 @@ static DataManager *sharedDataManager = nil;
 
 - (void) searchTMDBWithTextDidReceiveResponse:(ASIHTTPRequest *)request {
     NSString *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    NSLog(@"Search - %@", responseString);
     if (([responseString rangeOfString:@"<html>"].length == 0) && (responseString != nil)) {
         NSArray *responseArray = [responseString JSONValue];
         NSMutableArray *moviesArray = [[NSMutableArray alloc] init];
         if (responseArray != nil) {
             for (NSDictionary *movieDict in responseArray) {
                 MSMovie *movie = [self movieFromTMDBDict:movieDict];
-                [moviesArray addObject:movie];
+                if( movie ) {
+                    [moviesArray addObject:movie];
+                }
             }
         }
         
@@ -390,6 +393,7 @@ static DataManager *sharedDataManager = nil;
             for (NSDictionary *friendDict in responseArray) {
                 MSUser *friend = [[MSUser alloc] init];
                 [friend updateWithWebserviceDict:friendDict];
+                friend.relationshipType = USER_FRIEND;
                 [friendsArray addObject:friend];
             }
         }
@@ -535,9 +539,24 @@ static DataManager *sharedDataManager = nil;
 }
 
 - (MSMovie *) movieFromTMDBDict: (NSDictionary *)dict {
+    NSLog(@"Dict: %@", dict);
+    if(!dict || ![dict isKindOfClass:[NSDictionary class]])
+        return nil;
     MSMovie *movie = [[MSMovie alloc] init];
     movie.title = [dict objectForKey:@"name"];
     movie.imdbID = [[dict objectForKey:@"url"] stringByReplacingOccurrencesOfString:@"http://www.themoviedb.org/movie/" withString:@""];
+    NSString *imdbID = [dict objectForKey:@"imdb_id"];
+    if([imdbID isKindOfClass:[NSString class]]) {
+        movie.imdbURL = [NSString stringWithFormat:@"http://www.imdb.com/title/%@/", imdbID];
+    }
+    NSNumber *rating = [dict objectForKey:@"rating"];
+    if( [rating isKindOfClass:[NSNumber class]] ) {
+        movie.averageRating = [rating floatValue];
+    }
+    NSNumber *votes = [dict objectForKey:@"votes"];
+    if( [votes isKindOfClass:[NSNumber class]] ) {
+        movie.numRatings = [votes intValue];
+    }
    
     NSDateFormatter *dateFormatter = nil;
     if (dateFormatter == nil) {
@@ -545,7 +564,11 @@ static DataManager *sharedDataManager = nil;
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
         [dateFormatter setDateFormat:@"yyyy-mm-dd"];
-    } movie.releaseDate = [dateFormatter dateFromString:[dict objectForKey:@"released"]]; 
+    } 
+    NSString *released = [dict objectForKey:@"released"];
+    if( [released isKindOfClass:[NSString class]] ) {
+        movie.releaseDate = [dateFormatter dateFromString:released];
+    }
     
     dateFormatter = nil;
     if (dateFormatter == nil) {
@@ -553,7 +576,10 @@ static DataManager *sharedDataManager = nil;
         [dateFormatter setDateStyle:NSDateFormatterShortStyle];
         [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
         [dateFormatter setDateFormat:@"yyyy"];
-    } movie.releaseYear = [dateFormatter stringFromDate:movie.releaseDate];
+    }
+    if( movie.releaseDate ) {
+        movie.releaseYear = [dateFormatter stringFromDate:movie.releaseDate];
+    }
     
     NSArray *posters = [dict objectForKey:@"posters"];
     if( posters != nil && [posters count]) {

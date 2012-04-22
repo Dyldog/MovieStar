@@ -228,7 +228,9 @@
 }
 
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    [[DataManager sharedManager] searchTMDBWithText:searchText];
+    NSString *newSearchString = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSLog(@"SearchText: %@", newSearchString);
+    [[DataManager sharedManager] searchTMDBWithText:newSearchString];
 }
 
 - (void) reload {

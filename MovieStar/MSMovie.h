@@ -12,6 +12,7 @@
     
     NSString *wsID;
     NSString *imdbID;
+    NSString *imdbURL;
     NSString *title;
     NSDate *releaseDate;
     NSString *releaseYear;
@@ -24,6 +25,7 @@
 
 @property (nonatomic, strong) NSString *wsID;
 @property (nonatomic, strong) NSString *imdbID;
+@property (nonatomic, strong) NSString *imdbURL;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSDate *releaseDate;
 @property (nonatomic, strong) NSString *releaseYear;

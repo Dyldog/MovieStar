@@ -16,9 +16,13 @@
     IBOutlet EGOImageView *_profilePictureImageView;
     IBOutlet UILabel *_nameLabel;
     IBOutlet UILabel *_numMoviesRatedLabel;
-    IBOutlet UISegmentedControl *_tagModeSegmentedControl;
     IBOutlet UITableView *_tagTableView;
     
+    IBOutlet UIView *tagSectionHeader;
+    IBOutlet UIButton *topButton;
+    IBOutlet UIButton *latestButton;
+    IBOutlet UIButton *followButton;
+    IBOutlet UIButton *unFollowButton;
 }
 
 - (id) initWithUser:(MSUser *)user;
@@ -29,7 +33,9 @@
 @property (nonatomic, strong) UIImageView *profilePictureImageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *numMoviesRatedLabel;
-@property (nonatomic, strong) UISegmentedControl *tagModeSegmentedControl;
 @property (nonatomic, strong) UITableView *tagTableView;
-
+- (IBAction)topButtonSelected:(id)sender;
+- (IBAction)latestButtonSelected:(id)sender;
+- (IBAction)followButtonSelected:(id)sender;
+- (IBAction)unFollowButtonSelected:(id)sender;
 @end

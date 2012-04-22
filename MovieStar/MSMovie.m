@@ -12,6 +12,7 @@
 
 @synthesize wsID;
 @synthesize imdbID;
+@synthesize imdbURL;
 @synthesize title;
 @synthesize releaseDate;
 @synthesize releaseYear;
@@ -21,7 +22,7 @@
 @synthesize imageURL;
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"MSMovie: \n\tTitle: %@ \n\tRelease Date:%@Average Rating: %@ \n\tNum Ratings: %@ \n", self.title, self.releaseDate, self.averageRating, self.numRatings];
+    return [NSString stringWithFormat:@"MSMovie: \n\tTitle: %@ \n\tRelease Date:%@Average Rating: %.2f \n\tNum Ratings: %.2f \n", self.title, self.releaseDate, self.averageRating, self.numRatings];
 }
 
 @end

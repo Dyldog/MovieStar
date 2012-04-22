@@ -34,7 +34,11 @@
 }
 
 - (void) setRating:(CGFloat)rating {
-    _rating = rating;
+    float integral = 0.0;
+    float remainder = 0.0;
+    remainder = modff(rating, &integral);
+    _rating = remainder > 0.5 ? integral + 1 : remainder == 0.0 ? 0.0 : integral + 0.5;
+    
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
