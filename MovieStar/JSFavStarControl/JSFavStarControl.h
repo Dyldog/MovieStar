@@ -12,13 +12,13 @@
 
 @interface JSFavStarControl : UIControl {
 	
-	NSInteger _rating;
+	CGFloat _rating;
     NSInteger _spacing;
 	
 	UIImage *_dot, *_star;
 }
 
-@property (nonatomic) NSInteger rating;
+@property (nonatomic) CGFloat rating;
 
 // dotImage and starImage can both be nil, or not even a dot or a star (a any images you want!)
 // If either of these parameters are nil, the class will draw its own dot/star

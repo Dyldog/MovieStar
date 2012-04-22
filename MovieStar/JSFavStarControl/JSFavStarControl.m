@@ -19,7 +19,7 @@
 {
 	if (self = [self initWithFrame:CGRectMake(location.x, location.y, (starImage.size.width * RATING_MAX) + (spacing * RATING_MAX), starImage.size.height)])
 	{
-		_rating = 0;
+		_rating = 0.0;
         _spacing = spacing;
         
 		self.backgroundColor = [UIColor clearColor];
@@ -32,7 +32,7 @@
 	return self;
 }
 
-- (void) setRating:(NSInteger)rating {
+- (void) setRating:(CGFloat)rating {
     _rating = rating;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
@@ -40,26 +40,61 @@
 - (void)drawRect:(CGRect)rect
 {
 	CGPoint currPoint = CGPointZero;
-	
-	for (int i = 0; i < _rating; i++)
+    float width = 0.0;
+    
+	for (float i = 0.0; i < _rating; i++)
 	{
 		if (_star)
-			[_star drawAtPoint:currPoint];
+        {
+            width = _rating - i;
+            if( width >= 1.0 ) 
+                width = 1.0;
+
+            CGRect starRect = CGRectMake(0.0, 0.0, _star.size.width * width, _star.size.height);
+           
+            CGImageRef imageRef = CGImageCreateWithImageInRect(_star.CGImage, starRect);
+            UIImage *result = [UIImage imageWithCGImage:imageRef scale:_star.scale orientation:_star.imageOrientation];
+            CGImageRelease(imageRef);
+            
+			[result drawAtPoint:currPoint];
+        }
 		else
 			[@"★" drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:22]];
 			
+        if( width == 1.0 )
 		currPoint.x += _star.size.width + _spacing;
+        else {
+            currPoint.x += _star.size.width * width;
+        }
 	}
 	
-	NSInteger remaining = RATING_MAX - _rating;
+	float remaining = RATING_MAX - _rating;
 	
-	for (int i = 0; i < remaining; i++)
+	for (float i = width; i <= remaining; i++)
 	{
 		if (_dot)
-			[_dot drawAtPoint:currPoint];
+        {
+            if(i >= 1.0) {
+                width = remaining - i;
+                if( width >= 1.0 || width == 0.0 ) 
+                    width = 0.0;
+            }
+            
+            CGRect starRect = CGRectMake(_dot.size.width * width, 0.0, _dot.size.width, _dot.size.height);
+            
+            CGImageRef imageRef = CGImageCreateWithImageInRect(_dot.CGImage, starRect);
+            UIImage *result = [UIImage imageWithCGImage:imageRef scale:_dot.scale orientation:_dot.imageOrientation];
+            CGImageRelease(imageRef);
+            
+            [result drawAtPoint:currPoint];
+        }
 		else
 			[@" •" drawAtPoint:currPoint withFont:[UIFont boldSystemFontOfSize:22]];
-		currPoint.x += _star.size.width + _spacing;
+        
+        if( width != 0.0 )
+            currPoint.x += _dot.size.width * width + _spacing;
+        else
+            currPoint.x += _dot.size.width + _spacing;
 	}
 }
 
@@ -87,9 +122,13 @@
 	{		
 		if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 		{ // touch is inside section
-			if (_rating != (i+1))
+            float half = touchLocation.x/section.size.width;
+			if (_rating != (half))
 			{
-				_rating = i+1;
+                float integral = 0.0;
+                float remainder = 0.0;
+                remainder = modff(half, &integral);
+				_rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
 				[self sendActionsForControlEvents:UIControlEventValueChanged];
 			}
 			
@@ -130,11 +169,21 @@
 	{
 		for (int i = 0; i < RATING_MAX; i++)
 		{
+            NSLog(@"i: %d TouchLocation: (x: %.2f) SectionOrigin: (x: %.2f) SectionSize: (width: %.2f)",
+                  i, touchLocation.x, section.origin.x,section.size.width);
+            
 			if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 			{ // touch is inside section
-				if (_rating != (i+1))
+                float half = touchLocation.x/section.size.width;
+				if (_rating != (half))
 				{
-					_rating = i+1;
+                    
+                    float integral = 0.0;
+                    float remainder = 0.0;
+                    remainder = modff(half, &integral);
+                    _rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
+                    
+                    NSLog(@"%.2f",_rating);
 					[self sendActionsForControlEvents:UIControlEventValueChanged];
 				}
 				break;
@@ -178,9 +227,14 @@
 		{
 			if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 			{
-				if (_rating != (i+1))
+                float half = touchLocation.x/section.size.width;
+				if (_rating != (half))
 				{
-					_rating = i+1;
+                    float integral = 0.0;
+                    float remainder = 0.0;
+                    remainder = modff(half, &integral);
+                    _rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
+                    
 					[self sendActionsForControlEvents:UIControlEventValueChanged];
 				}
 				
