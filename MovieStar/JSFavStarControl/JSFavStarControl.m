@@ -10,6 +10,7 @@
 #import "JSFavStarControl.h"
 
 #define RATING_MAX 5
+#define TOUCH_OFFSET 3.5
 
 @implementation JSFavStarControl
 
@@ -122,13 +123,16 @@
 	{		
 		if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 		{ // touch is inside section
-            float half = touchLocation.x/section.size.width;
+                float half = (touchLocation.x+TOUCH_OFFSET)/section.size.width;
 			if (_rating != (half))
 			{
                 float integral = 0.0;
                 float remainder = 0.0;
                 remainder = modff(half, &integral);
 				_rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
+                if(_rating > RATING_MAX)
+                    _rating = RATING_MAX;
+
 				[self sendActionsForControlEvents:UIControlEventValueChanged];
 			}
 			
@@ -174,7 +178,7 @@
             
 			if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 			{ // touch is inside section
-                float half = touchLocation.x/section.size.width;
+                float half = (touchLocation.x+TOUCH_OFFSET)/section.size.width;
 				if (_rating != (half))
 				{
                     
@@ -182,6 +186,8 @@
                     float remainder = 0.0;
                     remainder = modff(half, &integral);
                     _rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
+                    if(_rating > RATING_MAX)
+                        _rating = RATING_MAX;
                     
                     NSLog(@"%.2f",_rating);
 					[self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -227,14 +233,16 @@
 		{
 			if (touchLocation.x > section.origin.x && touchLocation.x < section.origin.x + section.size.width)
 			{
-                float half = touchLocation.x/section.size.width;
+                float half = (touchLocation.x+TOUCH_OFFSET)/section.size.width;
 				if (_rating != (half))
 				{
                     float integral = 0.0;
                     float remainder = 0.0;
                     remainder = modff(half, &integral);
                     _rating = remainder > 0.5 ? integral + 1 : integral + 0.5;
-                    
+                    if(_rating > RATING_MAX)
+                        _rating = RATING_MAX;
+
 					[self sendActionsForControlEvents:UIControlEventValueChanged];
 				}
 				
