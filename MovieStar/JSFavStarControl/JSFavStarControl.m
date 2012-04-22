@@ -50,8 +50,8 @@
             width = _rating - i;
             if( width >= 1.0 ) 
                 width = 1.0;
-
-            CGRect starRect = CGRectMake(0.0, 0.0, _star.size.width * width, _star.size.height);
+            
+            CGRect starRect = CGRectMake(0.0, 0.0, _star.size.width * width * _star.scale, _star.size.height * _star.scale);
            
             CGImageRef imageRef = CGImageCreateWithImageInRect(_star.CGImage, starRect);
             UIImage *result = [UIImage imageWithCGImage:imageRef scale:_star.scale orientation:_star.imageOrientation];
@@ -81,7 +81,7 @@
                     width = 0.0;
             }
             
-            CGRect starRect = CGRectMake(_dot.size.width * width, 0.0, _dot.size.width, _dot.size.height);
+            CGRect starRect = CGRectMake((_dot.size.width * width * _dot.scale), 0.0, _dot.size.width * _dot.scale, _dot.size.height * _dot.scale);
             
             CGImageRef imageRef = CGImageCreateWithImageInRect(_dot.CGImage, starRect);
             UIImage *result = [UIImage imageWithCGImage:imageRef scale:_dot.scale orientation:_dot.imageOrientation];
