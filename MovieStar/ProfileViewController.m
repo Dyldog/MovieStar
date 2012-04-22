@@ -21,7 +21,6 @@
 @synthesize profilePictureImageView = _profilePictureImageView;
 @synthesize nameLabel = _nameLabel;
 @synthesize numMoviesRatedLabel = _numMoviesRatedLabel;
-@synthesize tagModeSegmentedControl = _tagModeSegmentedControl;
 @synthesize tagTableView = _tagTableView;
 
 - (id) initWithUser:(MSUser *)user
@@ -32,11 +31,6 @@
         _user = user;
         if (_user == nil) {
         }
-        
-        NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", _user.facebookID]; 
-        [_profilePictureImageView setImageURL:[NSURL URLWithString:urlString]];
-        [_profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_profilePictureImageView setClipsToBounds:YES];
     }
     return self;
 }
@@ -45,6 +39,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.tableView setDelegate:self];
     self.backgroundImageView.image = [UIImage imageNamed:@"background.png"];
 }
 
@@ -55,6 +50,10 @@
     
     if (self.user != nil) {
         self.nameLabel.text = self.user.name;
+        NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", _user.facebookID]; 
+        [_profilePictureImageView setImageURL:[NSURL URLWithString:urlString]];
+        [_profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_profilePictureImageView setClipsToBounds:YES];
         
         [[DataManager sharedManager] setDelegate:self];
         [[DataManager sharedManager] getRatingsForUser:self.user];
@@ -65,6 +64,9 @@
 
 - (void)viewDidUnload
 {
+    tagSectionHeader = nil;
+    topButton = nil;
+    latestButton = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -112,4 +114,29 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"Latest Tags";
+}
+
+- (UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"comments_bar.png"]];
+    
+//    headerImageView.tag = 11;
+//    [headerImageView setUserInteractionEnabled:YES];
+    
+    
+//    return headerImageView;
+    
+    return tagSectionHeader;
+}
+
+- (IBAction)topButtonSelected:(id)sender {
+    [topButton setSelected:YES];
+    [latestButton setSelected:NO];
+}
+
+- (IBAction)latestButtonSelected:(id)sender {
+    [latestButton setSelected:YES];
+    [topButton setSelected:NO];
+}
 @end
