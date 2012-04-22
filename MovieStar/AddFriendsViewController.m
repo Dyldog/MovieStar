@@ -194,7 +194,7 @@
 }
 
 - (void) inviteFriendButtonTapped:(UIButton *)sender {
-    
+    UIButton *inviteButton = (UIButton*)sender;
 }
 
 @end

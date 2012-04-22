@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum UserRelationshipType {
+    USER_YOU = 0,
+    USER_FRIEND = 1,
+    USER_UNDEFINED
+} kUserReleationshipType;
+
+
 @interface MSUser : NSObject {
     
     NSDictionary *fbDict;
@@ -23,6 +30,8 @@
     NSMutableArray *facebookFriends;
     
     NSMutableArray *ratings;
+    
+    kUserReleationshipType relationshipType;
 }
 
 - (void) updateWithWebserviceDict:(NSDictionary *)dict;
@@ -45,5 +54,7 @@
 @property (nonatomic, strong) NSMutableArray *facebookFriends;
 
 @property (nonatomic, strong) NSMutableArray *ratings;
+
+@property (assign) kUserReleationshipType relationshipType;
 
 @end

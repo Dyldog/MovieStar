@@ -241,7 +241,7 @@
 }
 
 - (IBAction)imdbButtonTapped:(id)sender {
-    NSURL *imdbURL = [NSURL URLWithString:movie.imdbID];
+    NSURL *imdbURL = [NSURL URLWithString:movie.imdbURL];
     if( imdbURL ) {
         [[UIApplication sharedApplication] openURL:imdbURL];
     }
@@ -252,7 +252,7 @@
         titleLabel.text = movie.title;
         [coverImageView setImageURL:[NSURL URLWithString:movie.imageURL]];
         yearLabel.text = [NSString stringWithFormat:@"(%@)", movie.releaseYear];
-        [ratingControl setRating:(int)(movie.averageRating/2)];
+        [ratingControl setRating:(movie.averageRating/2)];
     }
 }
 @end

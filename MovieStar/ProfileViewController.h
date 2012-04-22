@@ -21,6 +21,8 @@
     IBOutlet UIView *tagSectionHeader;
     IBOutlet UIButton *topButton;
     IBOutlet UIButton *latestButton;
+    IBOutlet UIButton *followButton;
+    IBOutlet UIButton *unFollowButton;
 }
 
 - (id) initWithUser:(MSUser *)user;
@@ -34,5 +36,6 @@
 @property (nonatomic, strong) UITableView *tagTableView;
 - (IBAction)topButtonSelected:(id)sender;
 - (IBAction)latestButtonSelected:(id)sender;
-
+- (IBAction)followButtonSelected:(id)sender;
+- (IBAction)unFollowButtonSelected:(id)sender;
 @end

@@ -39,17 +39,30 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Profile";
+    
     [self.tableView setDelegate:self];
     self.backgroundImageView.image = [UIImage imageNamed:@"background.png"];
+
+    [topButton setSelected:YES];
 }
 
 - (void) reload {
     if (self.user == nil) {
         self.user = [[DataManager sharedManager] currentUser];
+        self.user.relationshipType = USER_YOU;
+        [followButton setHidden:YES];
+        [unFollowButton setHidden:YES];
     }
     
     if (self.user != nil) {
         self.nameLabel.text = self.user.name;
+        
+        if(self.user.relationshipType == USER_FRIEND) {
+            [followButton setHidden:YES];
+            [unFollowButton setHidden:NO];
+        }
+        
         NSString *urlString = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", _user.facebookID]; 
         [_profilePictureImageView setImageURL:[NSURL URLWithString:urlString]];
         [_profilePictureImageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -64,6 +77,8 @@
 
 - (void)viewDidUnload
 {
+    unFollowButton = nil;
+    followButton = nil;
     tagSectionHeader = nil;
     topButton = nil;
     latestButton = nil;
@@ -138,5 +153,15 @@
 - (IBAction)latestButtonSelected:(id)sender {
     [latestButton setSelected:YES];
     [topButton setSelected:NO];
+}
+
+- (IBAction)followButtonSelected:(id)sender {
+    [followButton setHidden:YES];
+    [unFollowButton setHidden:NO];
+}
+
+- (IBAction)unFollowButtonSelected:(id)sender {
+    [followButton setHidden:NO];
+    [unFollowButton setHidden:YES];
 }
 @end
