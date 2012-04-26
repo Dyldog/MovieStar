@@ -22,17 +22,22 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-		egoImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_bg.png"]];
+        [self.contentView addSubview:bgImageView];
+        
+		egoImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"default_poster.png"]];
 		egoImageView.frame = CGRectMake((CELL_HEIGHT - COVER_HEIGHT) / 2, (CELL_HEIGHT - COVER_HEIGHT) / 2, COVER_WIDTH, COVER_HEIGHT);
 		[self.contentView addSubview:egoImageView];
         
         cellLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         cellLabel.numberOfLines = 0;
-        cellLabel.font = [UIFont systemFontOfSize:18];
-        cellLabel.textColor = [UIColor blackColor];
-        cellLabel.backgroundColor = [UIColor clearColor];
+        cellLabel.font = [UIFont boldSystemFontOfSize:18];
+        [cellLabel setTextAlignment:UITextAlignmentLeft];
+        [cellLabel setContentMode:UIViewContentModeTopLeft];
+        cellLabel.textColor = [UIColor whiteColor];
+        cellLabel.backgroundColor = [UIColor greenColor];
         CGRect labelFrame = cellLabel.bounds;
-        labelFrame.origin.x = egoImageView.frame.origin.x + egoImageView.frame.size.width + 4;
+        labelFrame.origin.x = egoImageView.frame.origin.x + egoImageView.frame.size.width + 15;
         labelFrame.origin.y = 4;
         labelFrame.size.width = 316 - labelFrame.origin.x;
         labelFrame.size.height = 40;

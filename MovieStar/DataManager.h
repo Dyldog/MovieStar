@@ -44,6 +44,8 @@
     
     NSMutableArray *topMovies;
     NSMutableArray *latestMovies;
+    
+    ASIHTTPRequest *searchRequest;
 
     NSObject <MSDataManagerDelegate> *delegate;
     
