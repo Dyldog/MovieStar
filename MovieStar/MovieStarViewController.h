@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 @class MSImageCell;
 @class MSRatingCell;
-@interface MovieStarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MSDataManagerDelegate> {
+@interface MovieStarViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MSDataManagerDelegate, UINavigationControllerDelegate> {
     
     UIImageView *_backgroundImageView;
     MBProgressHUD *_loadingView;

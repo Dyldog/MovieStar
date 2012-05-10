@@ -255,4 +255,5 @@
         [ratingControl setRating:(movie.averageRating/2)];
     }
 }
+
 @end

@@ -54,7 +54,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loadingthe view from its nib.
     self.loadingView = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:self.loadingView];
 }
@@ -138,6 +138,21 @@
     [headerImageView addSubview:headerLabel];
      
     return headerImageView;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    if([navigationController.viewControllers count ] > 1) {
+        UIView *backButtonView = [[UIView alloc] initWithFrame:CGRectMake(0,0,52,31)];
+        UIButton *myBackButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myBackButton setFrame:CGRectMake(0,0,52,31)];
+        [myBackButton setImage:[UIImage imageNamed:@"btn_back.png"] forState:UIControlStateNormal];
+        [myBackButton setEnabled:YES];
+        [myBackButton addTarget:viewController.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+        [backButtonView addSubview:myBackButton];
+        UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+        viewController.navigationItem.leftBarButtonItem = backButton;
+    }
 }
 
 @end

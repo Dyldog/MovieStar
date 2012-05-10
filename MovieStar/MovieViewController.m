@@ -41,9 +41,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view from its nib.
     self.tableView.scrollEnabled = YES;   
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
     
     if (_refreshHeaderView == nil) {
 		
@@ -103,7 +106,7 @@
     if (tableView == self.tableView) {
         UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
         
-        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
         
         UIScrollView *scrollView = [UIScrollView new];
         [scrollView setBackgroundColor:[UIColor blueColor]];
@@ -127,7 +130,7 @@
             movieButton.frame = CGRectMake(((COVER_WIDTH + 1) * i), 0, COVER_WIDTH, COVER_HEIGHT);
             
 //            EGOImageView *movieImageView = [[EGOImageView alloc] initWithFrame:movieButton.bounds];
-            EGOImageView *movieImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"DefaultMovieImage.png"]];
+            EGOImageView *movieImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"default_poster.png"]];
             movieImageView.delegate = movieButton;
             [movieImageView performSelectorOnMainThread:@selector(setImageURL:) withObject:[NSURL URLWithString:movie.imageURL] waitUntilDone:NO];
             [movieButton addSubview:movieImageView];
@@ -157,6 +160,7 @@
     } else {
         MSImageCell *cell = [super tableView:tableView imageCellForRowAtIndexPath:indexPath];
         cell.cellLabel.text = [[self.searchResults objectAtIndex:indexPath.row] title];
+        [cell.cellLabel setBackgroundColor:[UIColor purpleColor]];
         [cell setCoverPhoto:[[self.searchResults objectAtIndex:indexPath.row] imageURL]];
         return cell;
     }
@@ -169,7 +173,6 @@
         return 0;
     }
 }
-
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *header = [super tableView:tableView viewForHeaderInSection:section];
@@ -216,9 +219,12 @@
 }
 
 - (void) searchResultsReceived:(NSMutableArray *)results {
+    static int numUpdates = 1;
+    NSLog(@"Number search results received calls: %d", numUpdates);
     self.searchResults = results;
     NSLog(@"%@", results);
     [self.searchDisplayController.searchResultsTableView reloadData];
+    numUpdates++;
 }
 
 - (void) movieButtonTapped:(UIMovieButton *)mb {
@@ -228,8 +234,19 @@
 }
 
 - (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
+    
     NSString *newSearchString = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
         NSLog(@"SearchText: %@", newSearchString);
+    [[DataManager sharedManager] setDelegate:self];
+    [[DataManager sharedManager] searchTMDBWithText:newSearchString];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSString *newSearchString = [searchBar.text stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+    NSLog(@"SearchText: %@", newSearchString);
+    [[DataManager sharedManager] setDelegate:self];
     [[DataManager sharedManager] searchTMDBWithText:newSearchString];
 }
 
@@ -275,14 +292,15 @@
 #pragma mark UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
-	
-	[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+	if( scrollView == self.tableView)
+        [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+    
     
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-	
-	[_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+    if( scrollView == self.tableView)
+        [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 	
 }
 

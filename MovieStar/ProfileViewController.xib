@@ -193,6 +193,7 @@
 										<string key="NSFrame">{{94, 54}, {98, 28}}</string>
 										<reference key="NSSuperview" ref="514320056"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -264,6 +265,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{160, 31}</string>
 						<reference key="NSSuperview" ref="210496343"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="54672305"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -290,8 +292,10 @@
 					<object class="IBUIButton" id="54672305">
 						<reference key="NSNextResponder" ref="210496343"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{160, 0}, {161, 31}}</string>
+						<string key="NSFrame">{{160, 0}, {160, 31}}</string>
 						<reference key="NSSuperview" ref="210496343"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -317,6 +321,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 31}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="419635247"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -586,9 +591,9 @@
 				<string key="18.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="22.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="23.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="2" key="23.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="0.0" key="23.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<real value="2" key="24.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
+				<real value="1" key="24.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 				<string key="32.CustomClassName">EGOImageView</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="33.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -732,8 +737,8 @@
 			<string key="profile_shadow.png">{72, 8}</string>
 			<string key="sel_latest.png">{161, 31}</string>
 			<string key="sel_latest_select.png">{161, 31}</string>
-			<string key="sel_top.png">{160, 31}</string>
-			<string key="sel_top_select.png">{160, 31}</string>
+			<string key="sel_top.png">{161, 31}</string>
+			<string key="sel_top_select.png">{161, 31}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">1181</string>
 	</data>

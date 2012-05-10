@@ -24,9 +24,9 @@
         self.title = @"Friends";
         
         self.tabBarItem.image = [UIImage imageNamed:@"tab_friends.png"];
-        self.addFriendsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
-                                                                             target:self 
-                                                                             action:@selector(addFriendsButtonPressed:)];
+//        self.addFriendsButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd 
+//                                                                             target:self 
+//                                                                             action:@selector(addFriendsButtonPressed:)];
         self.navigationItem.rightBarButtonItem = self.addFriendsButton;
     }
     return self;
@@ -46,6 +46,16 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIView *rightButtonView = [[UIView alloc] initWithFrame:CGRectMake(0,0,32,31)];
+    UIButton *myRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [myRightButton setFrame:CGRectMake(0,0,32,31)];
+    [myRightButton setImage:[UIImage imageNamed:@"btn_plus.png"] forState:UIControlStateNormal];
+    [myRightButton setEnabled:YES];
+    [myRightButton addTarget:self action:@selector(addFriendsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightButtonView addSubview:myRightButton];
+    UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    self.navigationItem.rightBarButtonItem = rightButton;
 }
 
 - (void)viewDidUnload

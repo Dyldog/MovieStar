@@ -12,7 +12,7 @@
 #import "MSRatingCell.h"
 
 @interface ProfileViewController ()
-
+- (void)editButtonPressed:(UIButton *)button;
 @end
 
 @implementation ProfileViewController
@@ -41,6 +41,8 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"Profile";
     
+    self.tagTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.tableView setDelegate:self];
     self.backgroundImageView.image = [UIImage imageNamed:@"background.png"];
 
@@ -51,6 +53,16 @@
     if (self.user == nil) {
         self.user = [[DataManager sharedManager] currentUser];
         self.user.relationshipType = USER_YOU;
+        UIView *rightButtonView = [[UIView alloc] initWithFrame:CGRectMake(0,0,52,31)];
+        UIButton *myRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [myRightButton setFrame:CGRectMake(0,0,52,31)];
+        [myRightButton setImage:[UIImage imageNamed:@"btn_edit.png"] forState:UIControlStateNormal];
+        [myRightButton setImage:[UIImage imageNamed:@"btn_done.png"] forState:UIControlStateSelected];
+        [myRightButton setEnabled:YES];
+        [myRightButton addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [rightButtonView addSubview:myRightButton];
+        UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+        self.navigationItem.rightBarButtonItem = rightButton;
         [followButton setHidden:YES];
         [unFollowButton setHidden:YES];
     }
@@ -143,6 +155,10 @@
 //    return headerImageView;
     
     return tagSectionHeader;
+}
+
+- (void)editButtonPressed:(UIButton *)button {
+    [button setSelected:![button isSelected]];
 }
 
 - (IBAction)topButtonSelected:(id)sender {

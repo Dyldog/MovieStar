@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TagViewController : UIViewController
+@interface TagViewController : UIViewController <UINavigationControllerDelegate>
 
 @end

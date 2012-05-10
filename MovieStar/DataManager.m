@@ -266,6 +266,8 @@ static DataManager *sharedDataManager = nil;
     }
 }
 
+
+
 - (void) addMovie:(MSMovie *)movie {
     NSDictionary *movieDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                 movie.imageURL,
@@ -341,11 +343,11 @@ static DataManager *sharedDataManager = nil;
 }
 
 - (void) searchTMDBWithText:(NSString *)text {
-    ASIHTTPRequest *request = [self requestWithURL:[NSString stringWithFormat:@"%@%@", TMDB_URL_SEARCH, text]
+    searchRequest = [self requestWithURL:[NSString stringWithFormat:@"%@%@", TMDB_URL_SEARCH, text]
                                            andDict:nil];
-    [request setDelegate:self];
-    [request setDidFinishSelector:@selector(searchTMDBWithTextDidReceiveResponse:)];
-    [request startAsynchronous];
+    [searchRequest setDelegate:self];
+    [searchRequest setDidFinishSelector:@selector(searchTMDBWithTextDidReceiveResponse:)];
+    [searchRequest startAsynchronous];
 }
 
 - (void) searchTMDBWithTextDidReceiveResponse:(ASIHTTPRequest *)request {

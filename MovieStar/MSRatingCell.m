@@ -18,14 +18,17 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        movieCoverView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"placeholder.png"]];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_bg.png"]];
+        [self.contentView addSubview:bgImageView];
+        
+        movieCoverView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"default_poster.png"]];
         movieCoverView.frame = CGRectMake((CELL_HEIGHT - COVER_HEIGHT) / 2, (CELL_HEIGHT - COVER_HEIGHT) / 2, COVER_WIDTH, COVER_HEIGHT);
 		[self.contentView addSubview:movieCoverView];
         
         movieTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         movieTitleLabel.numberOfLines = 0;
         movieTitleLabel.font = [UIFont systemFontOfSize:18];
-        movieTitleLabel.textColor = [UIColor blackColor];
+        movieTitleLabel.textColor = [UIColor whiteColor];
         movieTitleLabel.backgroundColor = [UIColor clearColor];
         CGRect labelFrame = movieTitleLabel.bounds;
         labelFrame.origin.x = movieCoverView.frame.origin.x + movieCoverView.frame.size.width + 4;
