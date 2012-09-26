@@ -42,13 +42,13 @@
     [friendsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
                                              forBarMetrics:UIBarMetricsDefault];
 
-    TagViewController *tagViewController =[[TagViewController alloc] initWithNibName:nil bundle:nil];
-    UINavigationController *tagNavController = [[UINavigationController alloc] initWithRootViewController:tagViewController];
-    [tagNavController setDelegate:tagViewController];
-    [tagNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
-                                         forBarMetrics:UIBarMetricsDefault];
-    [tagNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_tag.png"]];
-    [tagNavController.tabBarItem setTitle:@"Tag"];
+//    TagViewController *tagViewController =[[TagViewController alloc] initWithNibName:nil bundle:nil];
+//    UINavigationController *tagNavController = [[UINavigationController alloc] initWithRootViewController:tagViewController];
+//    [tagNavController setDelegate:tagViewController];
+//    [tagNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
+//                                         forBarMetrics:UIBarMetricsDefault];
+//    [tagNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_tag.png"]];
+//    [tagNavController.tabBarItem setTitle:@"Tag"];
 
     ProfileViewController *profileViewController =[[ProfileViewController alloc] initWithUser:nil];
     UINavigationController *profileNavController = [[UINavigationController alloc] initWithRootViewController:profileViewController];
@@ -58,7 +58,7 @@
     [profileNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_profile.png"]];
     [profileNavController.tabBarItem setTitle:@"Profile"];
     
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] initWithNibName:nil bundle:nil];
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
     UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     [settingsNavController setDelegate:settingsViewController];
     [settingsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
@@ -68,7 +68,7 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:
                                              movieNavController, 
                                              friendsNavController,
-                                            tagNavController,
+                                            //tagNavController,
                                              profileNavController,
                                              settingsNavController, nil];
     

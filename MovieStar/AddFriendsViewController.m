@@ -123,8 +123,11 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section != 2) {
-        ProfileViewController *profileViewController = [ProfileViewController new];
+    if (indexPath.section == 0) {
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithUser:[self.appFriends objectAtIndex:indexPath.row]];
+        [self.navigationController pushViewController:profileViewController animated:YES];
+    } else if (indexPath.section == 1) {
+        ProfileViewController *profileViewController = [[ProfileViewController alloc] initWithUser:[self.friendsWhoArentFriends objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:profileViewController animated:YES];
     } [tableView deselectRowAtIndexPath:indexPath animated:YES];
 

@@ -237,10 +237,10 @@
     self.searchDisplayController.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.searchDisplayController.searchResultsTableView setBackgroundColor:[UIColor colorWithWhite:0.1 alpha:1.0]];
     
-    NSString *newSearchString = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSLog(@"SearchText: %@", newSearchString);
-    [[DataManager sharedManager] setDelegate:self];
-    [[DataManager sharedManager] searchTMDBWithText:newSearchString];
+//    NSString *newSearchString = [searchText stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+//        NSLog(@"SearchText: %@", newSearchString);
+//    [[DataManager sharedManager] setDelegate:self];
+//    [[DataManager sharedManager] searchTMDBWithText:newSearchString];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {

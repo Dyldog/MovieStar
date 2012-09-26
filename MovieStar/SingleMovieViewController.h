@@ -11,9 +11,10 @@
 #import "EGOImageView.h"
 #import "MovieStarViewController.h"
 
-@interface SingleMovieViewController : MovieStarViewController <MSDataManagerDelegate> {
+@interface SingleMovieViewController : MovieStarViewController <MSDataManagerDelegate, UITableViewDataSource, UITableViewDelegate> {
     
     MSMovie *movie;
+    NSMutableArray *ratingsWithComments;
     
     IBOutlet UIScrollView *scrollView;
     
@@ -29,6 +30,7 @@
     UIImageView *taggerBackgroundImageView;
     IBOutlet UIImageView *commentsHeaderBGImageView;
     IBOutlet UILabel *commentsHeaderLabel;
+    UITableView *commentsTableView;
     
     UITextView *commentTextView;
 }

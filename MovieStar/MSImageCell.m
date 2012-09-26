@@ -23,6 +23,9 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_bg.png"]];
+        CGRect bgFrame = bgImageView.frame;
+        bgFrame.size = self.frame.size;
+        bgImageView.frame = bgFrame;
         [self.contentView addSubview:bgImageView];
         
 		egoImageView = [[EGOImageView alloc] initWithPlaceholderImage:[UIImage imageNamed:@"default_poster.png"]];

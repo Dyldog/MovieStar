@@ -8,6 +8,7 @@
 
 #import "SingleMovieViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MSRatingCell.h"
 
 @implementation SingleMovieViewController
 
@@ -61,7 +62,16 @@
     
     [commentsHeaderBGImageView setImage:[UIImage imageNamed:@"comments_bar.png"]];
     
+    commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, commentsHeaderBGImageView.frame.origin.y + commentsHeaderBGImageView.frame.size.height, 320, self.view.frame.size.height) style:UITableViewStylePlain];
+    commentsTableView.backgroundColor = [UIColor clearColor];
+    commentsTableView.delegate = self;
+    commentsTableView.dataSource = self;
+    [bottomView addSubview:commentsTableView]; 
+    
     commentTextView = nil;
+    
+    scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, 
+                                        bottomView.frame.size.height);
 
 }
 
@@ -200,7 +210,18 @@
 
 - (void) ratingsForMovieReceived:(NSMutableArray *)ratings {
     movie.ratings = ratings;
-    NSLog(@"%@", ratings);
+    ratingsWithComments = [NSMutableArray new];
+    for (MSRating *rating in ratings) {
+        if (![rating.comment isEqualToString:@""]) {
+            [ratingsWithComments addObject:rating];
+        }
+    }
+    
+    if (ratingsWithComments.count) {
+        [commentsTableView reloadData];
+    } else {
+        [bottomView setHidden:YES];
+    }
     [self.loadingView hide:YES];
 }
 
@@ -254,6 +275,33 @@
         yearLabel.text = [NSString stringWithFormat:@"(%@)", movie.releaseYear];
         [ratingControl setRating:(movie.averageRating/2)];
     }
+}
+
+- (float) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return ratingsWithComments.count;
+}
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MSRating *rating = [ratingsWithComments objectAtIndex:indexPath.row];
+    UITableViewCell *cell = (MSRatingCell *)[super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_bg.png"]];
+    CGRect bgFrame = bgImageView.frame;
+    bgFrame.size = cell.frame.size;
+    bgImageView.frame = bgFrame;
+    [cell insertSubview:bgImageView atIndex:0];
+    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.text = rating.comment;
+    return cell;
 }
 
 @end

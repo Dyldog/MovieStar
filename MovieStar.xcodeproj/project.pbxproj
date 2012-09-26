@@ -131,7 +131,6 @@
 		54937B251542BAD70035FD2C /* view_imdb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54937B241542BAD10035FD2C /* view_imdb@2x.png */; };
 		54937B2D1542E8350035FD2C /* cutout.png in Resources */ = {isa = PBXBuildFile; fileRef = 54937B2B1542E8260035FD2C /* cutout.png */; };
 		54937B2E1542E8350035FD2C /* cutout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54937B2C1542E82C0035FD2C /* cutout@2x.png */; };
-		54B1D1051547C0B4008E33FA /* btn_back.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B1D1031547C0B4008E33FA /* btn_back.png */; };
 		54B1D1061547C0B4008E33FA /* btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B1D1041547C0B4008E33FA /* btn_back@2x.png */; };
 		54B1D1091547C104008E33FA /* btn_plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B1D1071547C104008E33FA /* btn_plus.png */; };
 		54B1D10A1547C104008E33FA /* btn_plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54B1D1081547C104008E33FA /* btn_plus@2x.png */; };
@@ -951,7 +950,6 @@
 				54D6E9701543EB9900C98E2C /* profile_shadow.png in Resources */,
 				54D6E9711543EB9900C98E2C /* profile_shadow@2x.png in Resources */,
 				5429E8091546B98300C05378 /* btn_back.png in Resources */,
-				54B1D1051547C0B4008E33FA /* btn_back.png in Resources */,
 				54B1D1061547C0B4008E33FA /* btn_back@2x.png in Resources */,
 				54B1D1091547C104008E33FA /* btn_plus.png in Resources */,
 				54B1D10A1547C104008E33FA /* btn_plus@2x.png in Resources */,
@@ -1060,8 +1058,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: hugh waters";
-				CURRENT_PROJECT_VERSION = 1.1.6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dylan Elliott";
+				CURRENT_PROJECT_VERSION = 1.1.9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1074,7 +1072,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CC265716-165F-41ED-9C88-45FB0F9C5338";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55AB659B-266A-49B3-AB5E-D3B0D7B7CC9B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1128,7 +1126,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.6;
+				CURRENT_PROJECT_VERSION = 1.1.9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1149,7 +1147,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.6;
+				CURRENT_PROJECT_VERSION = 1.1.9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

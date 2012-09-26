@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MovieStarViewController.h"
 
-@interface SettingsViewController : UIViewController <UINavigationControllerDelegate>
+@interface SettingsViewController : MovieStarViewController <UINavigationControllerDelegate> {
+    
+    IBOutlet UITableView *settingsTableView;
+}
 
 @end

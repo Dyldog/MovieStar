@@ -54,8 +54,12 @@
     [myRightButton setEnabled:YES];
     [myRightButton addTarget:self action:@selector(addFriendsButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [rightButtonView addSubview:myRightButton];
-    UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
-    self.navigationItem.rightBarButtonItem = rightButton;
+    self.addFriendsButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+    self.navigationItem.rightBarButtonItem = self.addFriendsButton;
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor blackColor];
+    [self addHeader];
 }
 
 - (void)viewDidUnload
@@ -123,6 +127,12 @@
     
     self.loadingView.labelText = @"Loading...";
     [self.loadingView show:YES];
+}
+
+- (void) addHeader {
+    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 10)];
+    v.backgroundColor = [UIColor clearColor];
+    [self.tableView setTableFooterView:v];
 }
 
 @end

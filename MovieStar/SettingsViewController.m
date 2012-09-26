@@ -14,9 +14,9 @@
 
 @implementation SettingsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
         // Custom initialization
         self.title = @"Settings";
@@ -30,6 +30,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    settingsTableView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
@@ -42,6 +43,35 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"Change Facebook Account";
+    } else if (indexPath.section == 1) {
+        cell.textLabel.text = @"Reset Account";
+    } else {
+        cell.textLabel.text = @"Change Email";
+    } return cell;
+}
+
+- (float) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0;
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    return nil;
 }
 
 @end
