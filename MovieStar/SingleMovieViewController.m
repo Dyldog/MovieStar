@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MSRatingCell.h"
 
+#define kCommentFontSize 16
+
 @implementation SingleMovieViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -113,6 +115,8 @@
                                                                  bottomViewFrame.origin.y + bottomViewFrame.size. height);
                              
                          }];
+        
+        [taggerControl setUserInteractionEnabled:YES];
     } else {
         [scrollView bringSubviewToFront:taggerControlHolder];
         [taggerControl setUserInteractionEnabled:NO];
@@ -220,7 +224,8 @@
     if (ratingsWithComments.count) {
         [commentsTableView reloadData];
     } else {
-        [bottomView setHidden:YES];
+        //TODO: Don't hide, put an 'Empty View' there that says 'No one's rated this, be the first!'
+        //[self hideBottomView];
     }
     [self.loadingView hide:YES];
 }
@@ -235,6 +240,7 @@
         [[DataManager sharedManager] getRatingsWithImdbID:m.imdbID];
     } else {
         [[DataManager sharedManager] addMovie:movie];
+        //[self hideBottomView];
     }
 }
 
@@ -274,11 +280,24 @@
         [coverImageView setImageURL:[NSURL URLWithString:movie.imageURL]];
         yearLabel.text = [NSString stringWithFormat:@"(%@)", movie.releaseYear];
         [ratingControl setRating:(movie.averageRating/2)];
+        
+        if ([[DataManager sharedManager] currentUser].ratings != nil) {
+            for (MSRating *userRating in [[DataManager sharedManager] currentUser].ratings) {
+                if ([userRating.movie.imdbID isEqualToString:movie.imdbID]) {
+                    [taggerControl setRating:(float)userRating.ratingLevel / 2];
+                    [self showRatedTagger];
+                }
+            }
+        }
     }
 }
 
 - (float) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0;
+}
+
+- (float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[[ratingsWithComments objectAtIndex:indexPath.row] comment] sizeWithFont:[UIFont systemFontOfSize:kCommentFontSize] constrainedToSize:CGSizeMake(300, 9999)].height + 20;
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -295,13 +314,59 @@
     
     UIImageView *bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cell_bg.png"]];
     CGRect bgFrame = bgImageView.frame;
-    bgFrame.size = cell.frame.size;
+    bgFrame.size = CGSizeMake(320, [self tableView:tableView heightForRowAtIndexPath:indexPath]);
     bgImageView.frame = bgFrame;
     [cell insertSubview:bgImageView atIndex:0];
     
+    CGRect labelFrame = cell.textLabel.frame;
+    labelFrame.size.height = [self tableView:tableView heightForRowAtIndexPath:indexPath] - 20;
+    cell.textLabel.frame = labelFrame;
+    
+    cell.textLabel.font = [UIFont systemFontOfSize:kCommentFontSize];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.numberOfLines = 0;
     cell.textLabel.text = rating.comment;
     return cell;
+}
+
+- (void) hideBottomView {
+    [bottomView setHidden:YES];
+    [scrollView setContentSize:CGSizeMake(320, bottomView.frame.origin.y)];
+}
+
+- (void) showRatedTagger {
+    [scrollView bringSubviewToFront:taggerControlHolder];
+    [taggerControl setUserInteractionEnabled:NO];
+    
+    [taggerControl removeFromSuperview];
+    [taggerBackgroundImageView removeFromSuperview];
+    
+    CGRect taggerFrame = taggerControl.frame;
+    taggerFrame.origin.x = 20.0;
+    taggerFrame.origin.y = taggerControlHolder.frame.origin.y + 18.0;
+    taggerControl.frame = taggerFrame;
+    
+    CGRect taggerBackgroundFrame = taggerBackgroundImageView.frame;
+    taggerBackgroundFrame.origin.x = 0.0;
+    taggerBackgroundFrame.origin.y = taggerControlHolder.frame.origin.y;
+    taggerBackgroundImageView.frame = taggerBackgroundFrame;
+    
+    [scrollView addSubview:taggerBackgroundImageView];
+    [scrollView addSubview:taggerControl];
+    
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         
+                         CGRect bottomViewFrame = bottomView.frame;
+                         bottomViewFrame.origin.y = taggerBackgroundImageView.frame.origin.y + taggerBackgroundImageView.frame.size.height + 10;
+                         bottomView.frame = bottomViewFrame;
+                         
+                         scrollView.contentSize = CGSizeMake(scrollView.contentSize.width,
+                                                             bottomViewFrame.origin.y + bottomViewFrame.size. height);
+                         CGRect taggerViewFrame = taggerControlHolder.frame;
+                         taggerViewFrame.size.height = 0;
+                         taggerControlHolder.frame = taggerViewFrame;
+                     }];
 }
 
 @end

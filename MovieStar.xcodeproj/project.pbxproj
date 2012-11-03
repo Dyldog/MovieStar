@@ -39,8 +39,8 @@
 		11631323149EA0D700DAC77F /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 11631313149EA0D700DAC77F /* SBJsonBase.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11631324149EA0D700DAC77F /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 11631315149EA0D700DAC77F /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		11631325149EA0D700DAC77F /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11631317149EA0D700DAC77F /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1163990B153ED37600356DF9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398D9153ED37600356DF9 /* Icon.png */; };
-		1163990C153ED37600356DF9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398DA153ED37600356DF9 /* Icon@2x.png */; };
+		1163990B153ED37600356DF9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398D9153ED37600356DF9 /* icon.png */; };
+		1163990C153ED37600356DF9 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398DA153ED37600356DF9 /* icon@2x.png */; };
 		1163990D153ED37600356DF9 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398DC153ED37600356DF9 /* background.png */; };
 		1163990E153ED37600356DF9 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398DD153ED37600356DF9 /* background@2x.png */; };
 		1163990F153ED37600356DF9 /* banner_ms.png in Resources */ = {isa = PBXBuildFile; fileRef = 116398DE153ED37600356DF9 /* banner_ms.png */; };
@@ -218,8 +218,8 @@
 		11631315149EA0D700DAC77F /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		11631316149EA0D700DAC77F /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		11631317149EA0D700DAC77F /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		116398D9153ED37600356DF9 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
-		116398DA153ED37600356DF9 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		116398D9153ED37600356DF9 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		116398DA153ED37600356DF9 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		116398DC153ED37600356DF9 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		116398DD153ED37600356DF9 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		116398DE153ED37600356DF9 /* banner_ms.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_ms.png; sourceTree = "<group>"; };
@@ -570,8 +570,8 @@
 		116398D8153ED37600356DF9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				116398D9153ED37600356DF9 /* Icon.png */,
-				116398DA153ED37600356DF9 /* Icon@2x.png */,
+				116398D9153ED37600356DF9 /* icon.png */,
+				116398DA153ED37600356DF9 /* icon@2x.png */,
 				116398DB153ED37600356DF9 /* LoginScreen */,
 				116398FE153ED37600356DF9 /* Tabs */,
 			);
@@ -875,8 +875,8 @@
 				114CC41914FA271C000C578E /* AddFriendsViewController.xib in Resources */,
 				11AD1D291515B93D00432981 /* ProfileViewController.xib in Resources */,
 				11292A36152E885300AE45F3 /* SettingsViewController.xib in Resources */,
-				1163990B153ED37600356DF9 /* Icon.png in Resources */,
-				1163990C153ED37600356DF9 /* Icon@2x.png in Resources */,
+				1163990B153ED37600356DF9 /* icon.png in Resources */,
+				1163990C153ED37600356DF9 /* icon@2x.png in Resources */,
 				1163990D153ED37600356DF9 /* background.png in Resources */,
 				1163990E153ED37600356DF9 /* background@2x.png in Resources */,
 				1163990F153ED37600356DF9 /* banner_ms.png in Resources */,
@@ -1042,6 +1042,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: hugh waters";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_USE_REGISTER_FUNCTION_CALLS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1059,7 +1060,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dylan Elliott";
-				CURRENT_PROJECT_VERSION = 1.1.9;
+				CURRENT_PROJECT_VERSION = 1.2.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1072,7 +1073,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "55AB659B-266A-49B3-AB5E-D3B0D7B7CC9B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B74E6ED1-00CD-479D-B0A7-150EFBE2E951";
 				WRAPPER_EXTENSION = app;
 			};
 			name = "Ad Hoc";
@@ -1093,6 +1094,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_USE_REGISTER_FUNCTION_CALLS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1111,6 +1113,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_USE_REGISTER_FUNCTION_CALLS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1126,7 +1129,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.9;
+				CURRENT_PROJECT_VERSION = 1.2.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1147,7 +1150,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MovieStar/MovieStar.entitlements;
-				CURRENT_PROJECT_VERSION = 1.1.9;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dylan Elliott";
+				CURRENT_PROJECT_VERSION = 1.2.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1160,6 +1164,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B74E6ED1-00CD-479D-B0A7-150EFBE2E951";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

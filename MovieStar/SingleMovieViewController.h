@@ -41,5 +41,6 @@
 - (IBAction)commentButtonTapped:(id)sender;
 - (void) reload;
 - (IBAction)imdbButtonTapped:(id)sender;
+- (void) hideBottomView;
 
 @end

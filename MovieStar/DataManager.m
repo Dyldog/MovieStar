@@ -11,6 +11,7 @@
 #define WS_URL_AUTH @"http://veritaswebsystems.com/MovieStar/MovieStar/AuthenticateUserByFaceBookId"
 #define WS_URL_GETTOPMOVIES @"http://veritaswebsystems.com/MovieStar/MovieStar/GetTopMovies"
 #define WS_URL_GETLATESTMOVIES @"http://veritaswebsystems.com/MovieStar/MovieStar/GetRecentlyRatedMovies"
+#define WS_URL_GETHOMESCREEN @"http://veritaswebsystems.com/MovieStar/MovieStar/GetHomeScreen"
 #define WS_URL_GETMOVIE @"http://veritaswebsystems.com/MovieStar/MovieStar/GetMovie"
 #define WS_URL_GETRATINGSFORMOVIE @"http://veritaswebsystems.com/MovieStar/MovieStar/GetRatingsForMovie"
 #define WS_URL_ADDMOVIE @"http://veritaswebsystems.com/MovieStar/MovieStar/AddMovie"
@@ -140,6 +141,8 @@ static DataManager *sharedDataManager = nil;
         [self.delegate userDidLogin];
     }
     
+    [self getRatingsForUser:self.currentUser];
+    
 }
 
 - (void) getTopMovies {
@@ -205,6 +208,50 @@ static DataManager *sharedDataManager = nil;
     
     if ([self.delegate respondsToSelector:@selector(latestMoviesReceived)]) {
         [self.delegate latestMoviesReceived];
+    }
+}
+
+- (void) getHomeScreen {
+    self.topMovies = nil;
+    self.latestMovies = nil;
+    if (self.currentUser.userID != nil) {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              currentUser.userID,
+                              @"AuthId",
+                              @"20",
+                              @"TopNumber", nil];
+        ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETHOMESCREEN andDict:dict];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(getHomeScreenDidReceiveResponse:)];
+        [request startAsynchronous];
+    }
+}
+
+- (void) getHomeScreenDidReceiveResponse:(ASIHTTPRequest *)request {
+    NSString *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
+    NSDictionary *responseDict = [responseString JSONValue];
+    NSArray *recentMoviesArray = [responseDict objectForKey:@"RecentMovies"];
+    NSArray *topMoviesArray = [responseDict objectForKey:@"TopMovies"];
+    
+    self.topMovies = [[NSMutableArray alloc] init];
+    self.latestMovies = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *topMovieDict in topMoviesArray) {
+        // for (int i = 0; i < 10; i++) {
+        MSMovie *topMovie = [self movieFromDict:topMovieDict];
+        [self.topMovies addObject:topMovie];
+        // }
+    }
+    
+    for (NSDictionary *recentMovieDict in recentMoviesArray) {
+        // for (int i = 0; i < 10; i++) {
+        MSMovie *recentMovie = [self movieFromDict:recentMovieDict];
+        [self.latestMovies addObject:recentMovie];
+        // }
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(homeScreenReceived)]) {
+        [self.delegate homeScreenReceived];
     }
 }
 
@@ -276,11 +323,7 @@ static DataManager *sharedDataManager = nil;
                                 @"ImdbId",
                                 movie.title,
                                 @"Name",
-                                @"0",
-                                @"AvgRating",
-                                @"0",
-                                @"NoOfRating",
-                                [NSString stringWithFormat:@"/Date(%qi+1000)/", ([movie.releaseDate timeIntervalSince1970] * 1000)],
+                                [NSString stringWithFormat:@"/Date(%.0f+1000)/", ([movie.releaseDate timeIntervalSince1970] * 1000)],
                                 @"Year",
                                 nil];
     
@@ -309,18 +352,30 @@ static DataManager *sharedDataManager = nil;
 }
 
 - (void) addRatingForMovie:(MSRating *)rating {
-    NSDictionary *ratingDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                rating.comment,
-                                @"Comment",
-                                [[NSNumber numberWithFloat:rating.ratingLevel] stringValue],
-                                @"RatingLevel",
-                                rating.movie.wsID,
-                                @"MovieId",
-                                currentUser.userID,
-                                @"UserId", nil];
+    NSDictionary *ratingDict;
+    
+    if (rating.comment.length > 0) {
+        ratingDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                    rating.comment,
+                                    @"Comment",
+                                    [[NSNumber numberWithFloat:rating.ratingLevel] stringValue],
+                                    @"RatingLevel",
+                                    rating.movie.wsID,
+                                    @"MovieId",
+                                    currentUser.userID,
+                                    @"UserId", nil];
+    } else {
+        ratingDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                      [[NSNumber numberWithFloat:rating.ratingLevel] stringValue],
+                      @"RatingLevel",
+                      [[rating movie] wsID],
+                      @"MovieId",
+                      [currentUser userID],
+                      @"UserId", nil];
+    }
     
     NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
-                          currentUser.userID, 
+                          currentUser.userID,
                           @"AuthId",
                           ratingDict,
                           @"Rating",
@@ -372,7 +427,6 @@ static DataManager *sharedDataManager = nil;
 }
 
 - (void) getFriendsForCurrentUser {
-    self.topMovies = nil;
     if (self.currentUser.userID != nil) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                               currentUser.userID, 
@@ -500,8 +554,14 @@ static DataManager *sharedDataManager = nil;
         [userRatings addObject:userRating];
     }
     
-    if ([self.delegate respondsToSelector:@selector(userRatingsReceived:)]) {
-        [self.delegate userRatingsReceived:userRatings];
+    if (userRatings.count > 0) {
+        if ([[(MSRating *)[userRatings objectAtIndex:0] userID] isEqualToString:currentUser.userID]) {
+            currentUser.ratings = userRatings;
+        }
+        
+        if ([self.delegate respondsToSelector:@selector(userRatingsReceived:)]) {
+            [self.delegate userRatingsReceived:userRatings];
+        }
     }
 }
 

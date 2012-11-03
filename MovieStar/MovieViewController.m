@@ -218,6 +218,17 @@
     }
 }
 
+- (void) homeScreenReceived {
+    _latestMoviesReceived = YES;
+    _topMoviesReceived = YES;
+    [self.tableView reloadData];
+    [self hideLoadingViewIfPossible];
+    updatedDate = [NSDate date];
+    if( _topMoviesReceived && _latestMoviesReceived ) {
+        [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:0.5];
+    }
+}
+
 - (void) searchResultsReceived:(NSMutableArray *)results {
     static int numUpdates = 1;
     NSLog(@"Number search results received calls: %d", numUpdates);
@@ -255,8 +266,7 @@
     _latestMoviesReceived = NO;
     
     [[DataManager sharedManager] setDelegate:self];
-    [[DataManager sharedManager] getTopMovies];
-    [[DataManager sharedManager] getLatestMovies];
+    [[DataManager sharedManager] getHomeScreen];
     
     self.loadingView.labelText = @"Loading...";
     [self.loadingView show:YES];

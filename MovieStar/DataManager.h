@@ -21,6 +21,7 @@
 - (void) userDidLogin;
 - (void) topMoviesReceived;
 - (void) latestMoviesReceived;
+- (void) homeScreenReceived;
 - (void) movieReceived:(MSMovie *)m;
 - (void) ratingsForMovieReceived:(NSMutableArray *)ratings;
 - (void) addMovieReceived:(MSMovie *)m;
@@ -59,6 +60,7 @@
 - (void) loginWithCurrentFacebookUser;
 - (void) getTopMovies;
 - (void) getLatestMovies;
+- (void) getHomeScreen;
 - (void) getMovie:(NSString *)imdbID;
 - (void) getRatingsWithImdbID:(NSString *)imdbID;
 - (void) addMovie:(MSMovie *)movie;
@@ -67,6 +69,7 @@
 - (void) webServiceURLAuthDidReceiveResponse:(ASIHTTPRequest *)request;
 - (void) getTopMoviesDidReceiveResponse:(ASIHTTPRequest *)request;
 - (void) getLatestMoviesDidReceiveResponse:(ASIHTTPRequest *)request;
+- (void) getHomeScreenDidReceiveResponse:(ASIHTTPRequest *)request;
 - (void) getMovieDidReceiveResponse:(ASIHTTPRequest *)request;
 - (void) getRatingsDidReceiveResponse:(ASIHTTPRequest *)request;
 - (void) addMovieDidReceiveResponse:(ASIHTTPRequest *)request;
