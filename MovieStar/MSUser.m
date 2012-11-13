@@ -23,6 +23,7 @@
 @synthesize appFriends;
 
 @synthesize ratings;
+@synthesize totalNumRatings;
 
 @synthesize relationshipType;
 
@@ -38,6 +39,7 @@
         facebookFriends = nil;
         appFriends = nil;
         ratings = nil;
+        totalNumRatings = 0;
         relationshipType = USER_UNDEFINED;
     }
     
@@ -48,6 +50,7 @@
     self.userID = [dict objectForKey:@"Id"];
     self.facebookID = [dict objectForKey:@"FaceBookId"];
     self.name = [dict objectForKey:@"Name"];
+    self.totalNumRatings = [[dict objectForKey:@"NoOfMoviesRated"] intValue];
     
 }
 - (void) updateWithFacebookDict:(NSDictionary *)dict {

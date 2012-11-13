@@ -156,6 +156,7 @@
 		54D6E96D1543EB6D00C98E2C /* btn_unfollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D6E9691543EB6D00C98E2C /* btn_unfollow@2x.png */; };
 		54D6E9701543EB9900C98E2C /* profile_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D6E96E1543EB9900C98E2C /* profile_shadow.png */; };
 		54D6E9711543EB9900C98E2C /* profile_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 54D6E96F1543EB9900C98E2C /* profile_shadow@2x.png */; };
+		FC15D728164E19C200F02E8C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FC15D727164E19C200F02E8C /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -369,6 +370,7 @@
 		54D6E9691543EB6D00C98E2C /* btn_unfollow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_unfollow@2x.png"; sourceTree = "<group>"; };
 		54D6E96E1543EB9900C98E2C /* profile_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_shadow.png; sourceTree = "<group>"; };
 		54D6E96F1543EB9900C98E2C /* profile_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_shadow@2x.png"; sourceTree = "<group>"; };
+		FC15D727164E19C200F02E8C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 		111E083F1492F3050027423C = {
 			isa = PBXGroup;
 			children = (
+				FC15D727164E19C200F02E8C /* Default-568h@2x.png */,
 				111E08541492F3050027423C /* MovieStar */,
 				111E084D1492F3050027423C /* Frameworks */,
 				111E084B1492F3050027423C /* Products */,
@@ -961,6 +964,7 @@
 				54B1D1161547C7B7008E33FA /* btn_edit@2x.png in Resources */,
 				54B1D1191547CB4B008E33FA /* default_poster.png in Resources */,
 				54B1D11A1547CB4B008E33FA /* default_poster@2x.png in Resources */,
+				FC15D728164E19C200F02E8C /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

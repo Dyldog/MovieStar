@@ -109,6 +109,7 @@
         cell.contentView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:1.0];
         
         UIScrollView *scrollView = [UIScrollView new];
+        scrollView.delegate = self;
         [scrollView setBackgroundColor:[UIColor blueColor]];
         scrollView.frame = CGRectMake(0, 0, 320, CELL_HEIGHT);
         scrollView.backgroundColor = [UIColor darkGrayColor];
@@ -116,9 +117,13 @@
         NSArray *movies;
                     
         if (indexPath.section == 0) {
+            //TopMovies
             movies = [[DataManager sharedManager] topMovies];
+            scrollView.tag = 987;
         } else {
+            //LatestMovies
             movies = [[DataManager sharedManager] latestMovies];
+            scrollView.tag = 789;
         }
         
         for (int i = 0; i < [movies count]; i++) {
@@ -160,7 +165,6 @@
     } else {
         MSImageCell *cell = [super tableView:tableView imageCellForRowAtIndexPath:indexPath];
         cell.cellLabel.text = [[self.searchResults objectAtIndex:indexPath.row] title];
-        [cell.cellLabel setBackgroundColor:[UIColor purpleColor]];
         [cell setCoverPhoto:[[self.searchResults objectAtIndex:indexPath.row] imageURL]];
         return cell;
     }
@@ -302,10 +306,11 @@
 #pragma mark UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{	
-	if( scrollView == self.tableView)
+	if( scrollView == self.tableView) {
         [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-    
+    } else {
+        
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{

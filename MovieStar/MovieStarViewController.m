@@ -88,6 +88,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault 
                                       reuseIdentifier:@"Cell"];
     }
+    cell.backgroundColor = [UIColor clearColor];
 	cell.textLabel.text = [NSString stringWithFormat:@"Cell %d", indexPath.row];
     return cell;
 }

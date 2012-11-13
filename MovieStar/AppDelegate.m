@@ -58,19 +58,17 @@
     [profileNavController.tabBarItem setImage:[UIImage imageNamed:@"tab_profile.png"]];
     [profileNavController.tabBarItem setTitle:@"Profile"];
     
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    [settingsNavController setDelegate:settingsViewController];
-    [settingsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
-                                             forBarMetrics:UIBarMetricsDefault];
+//    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+//    UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+//    [settingsNavController setDelegate:settingsViewController];
+//    [settingsNavController.navigationBar setBackgroundImage:[UIImage imageNamed:@"title_bar.png"] 
+//                                             forBarMetrics:UIBarMetricsDefault];
 
     
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:
                                              movieNavController, 
                                              friendsNavController,
-                                            //tagNavController,
-                                             profileNavController,
-                                             settingsNavController, nil];
+                                             profileNavController, nil];
     
     UIImageView *customTabBarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tab_bar.png"]];
     [customTabBarImageView setUserInteractionEnabled:NO];

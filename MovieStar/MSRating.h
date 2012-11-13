@@ -15,6 +15,7 @@
     NSString *userID;
     float ratingLevel;
     NSString *comment;
+    NSDate *timestamp;
     
 }
 
@@ -23,5 +24,6 @@
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic) float ratingLevel;
 @property (nonatomic, strong) NSString *comment;
+@property (nonatomic, strong) NSDate *timestamp;
 
 @end

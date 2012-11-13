@@ -11,6 +11,8 @@
 #import "MSMovie.h"
 #import "MSRatingCell.h"
 
+#define ratingBlockSize 20
+
 @interface ProfileViewController ()
 - (void)editButtonPressed:(UIButton *)button;
 @end
@@ -61,14 +63,20 @@
         [myRightButton setEnabled:YES];
         [myRightButton addTarget:self action:@selector(editButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [rightButtonView addSubview:myRightButton];
-        UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
-        self.navigationItem.rightBarButtonItem = rightButton;
+        //UIBarButtonItem* rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightButtonView];
+        //self.navigationItem.rightBarButtonItem = rightButton;
         [followButton setHidden:YES];
         [unFollowButton setHidden:YES];
     }
     
     if (self.user != nil) {
         self.nameLabel.text = self.user.name;
+        
+        if (self.user.totalNumRatings == 1) {
+            self.numMoviesRatedLabel.text = [NSString stringWithFormat:@"%d movie rated", self.user.totalNumRatings];
+        } else {
+            self.numMoviesRatedLabel.text = [NSString stringWithFormat:@"%d movies rated", self.user.totalNumRatings];
+        }
         
         if(self.user.relationshipType == USER_FRIEND) {
             [followButton setHidden:YES];
@@ -164,11 +172,17 @@
 - (IBAction)topButtonSelected:(id)sender {
     [topButton setSelected:YES];
     [latestButton setSelected:NO];
+    
+    [self.user.ratings removeAllObjects];
+    [[DataManager sharedManager] getRatingsForUser:self.user From:0 Amound:20 SortedBy:@"0"];
 }
 
 - (IBAction)latestButtonSelected:(id)sender {
     [latestButton setSelected:YES];
     [topButton setSelected:NO];
+    
+    [self.user.ratings removeAllObjects];
+    [[DataManager sharedManager] getRatingsForUser:self.user From:0 Amound:20 SortedBy:@"1"];
 }
 
 - (IBAction)followButtonSelected:(id)sender {

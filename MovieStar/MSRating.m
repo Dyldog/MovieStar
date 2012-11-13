@@ -9,6 +9,20 @@
 #import "MSRating.h"
 
 @implementation MSRating
-@synthesize ratingID, movie, userID, ratingLevel, comment;
+@synthesize ratingID, movie, userID, ratingLevel, comment, timestamp;
+
+- (NSComparisonResult) compareByRating:(MSRating *)otherRating {
+    if (self.ratingLevel == otherRating.ratingLevel) {
+        return NSOrderedSame;
+    } else if (self.ratingLevel < otherRating.ratingLevel) {
+        return NSOrderedAscending;
+    } else {
+        return NSOrderedDescending;
+    }
+}
+
+- (NSComparisonResult) compareByDate:(MSRating *)otherRating {
+    return [self.timestamp compare:otherRating.timestamp];
+}
 
 @end

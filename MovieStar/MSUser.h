@@ -30,6 +30,7 @@ typedef enum UserRelationshipType {
     NSMutableArray *facebookFriends;
     
     NSMutableArray *ratings;
+    int totalNumRatings;
     
     kUserReleationshipType relationshipType;
 }
@@ -39,7 +40,7 @@ typedef enum UserRelationshipType {
 
 
 - (void) updateFacebookFriendsWithArray:(NSArray *)ff;
-- (void) updateAppFriendsWithArray:(NSArray *)af;
+//- (void) updateAppFriendsWithArray:(NSArray *)af;
 
 @property (nonatomic, strong) NSDictionary *fbDict;
 @property (nonatomic, strong) NSDictionary *wsDict;
@@ -54,6 +55,7 @@ typedef enum UserRelationshipType {
 @property (nonatomic, strong) NSMutableArray *facebookFriends;
 
 @property (nonatomic, strong) NSMutableArray *ratings;
+@property (nonatomic) int totalNumRatings;
 
 @property (assign) kUserReleationshipType relationshipType;
 

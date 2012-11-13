@@ -22,7 +22,7 @@
 @synthesize imageURL;
 
 - (NSString *) description {
-    return [NSString stringWithFormat:@"MSMovie: \n\tTitle: %@ \n\tRelease Date:%@Average Rating: %.2f \n\tNum Ratings: %.2f \n", self.title, self.releaseDate, self.averageRating, self.numRatings];
+    return [NSString stringWithFormat:@"MSMovie: \n\tTitle: %@ \n\tRelease Date:%@Average Rating: %.2f \n\tNum Ratings: %.2d \n", self.title, self.releaseDate, self.averageRating, self.numRatings];
 }
 
 @end

@@ -58,8 +58,8 @@
 
 - (BOOL) autoLoginIfPossible;
 - (void) loginWithCurrentFacebookUser;
-- (void) getTopMovies;
-- (void) getLatestMovies;
+- (void) getTopMoviesFrom:(int)start;
+- (void) getLatestMoviesFrom:(int)start;
 - (void) getHomeScreen;
 - (void) getMovie:(NSString *)imdbID;
 - (void) getRatingsWithImdbID:(NSString *)imdbID;
@@ -92,6 +92,8 @@
 
 - (void) getRatingsForUser:(MSUser *)user;
 - (void) getRatingsForUserDidReceiveResponse:(ASIHTTPRequest *)request;
+
+- (void) getRatingsForUser:(MSUser *)user From:(int)from Amound:(int)num SortedBy:(NSString *)latestOrHighest;
 
 - (MSRating *) ratingFromDict:(NSDictionary *)dict;
 - (MSMovie *) movieFromDict: (NSDictionary *)dict;

@@ -145,14 +145,16 @@ static DataManager *sharedDataManager = nil;
     
 }
 
-- (void) getTopMovies {
+- (void) getTopMoviesFrom:(int)start {
     self.topMovies = nil;
     if (self.currentUser.userID != nil) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                               currentUser.userID, 
-                              @"AuthId", 
-                              @"20", 
-                              @"TopNumber", nil];
+                              @"AuthId",
+                              @"2", 
+                              @"Number",
+                              [NSString stringWithFormat:@"%d", start],
+                              @"StartPos",nil];
         ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETTOPMOVIES andDict:dict];
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(getTopMoviesDidReceiveResponse:)];
@@ -164,7 +166,7 @@ static DataManager *sharedDataManager = nil;
     NSString *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
     NSArray *responseDict = [responseString JSONValue];
     
-    self.topMovies = [[NSMutableArray alloc] init];
+    //Not reallocating the array because this should only be used to add to it after GetHomeScreen
     
     for (NSDictionary *topMovieDict in responseDict) {
        // for (int i = 0; i < 10; i++) {
@@ -178,14 +180,16 @@ static DataManager *sharedDataManager = nil;
     }
 }
 
-- (void) getLatestMovies {
+- (void) getLatestMoviesFrom:(int) start {
     self.latestMovies = nil;
     if (self.currentUser.userID != nil) {
         NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                               currentUser.userID, 
                               @"AuthId", 
-                              @"20", 
-                              @"TopNumber", nil];
+                              @"2", 
+                              @"Number",
+                              [NSString stringWithFormat:@"%d", start],
+                              @"StartPos", nil];
         ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETLATESTMOVIES andDict:dict];
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(getLatestMoviesDidReceiveResponse:)];
@@ -197,7 +201,9 @@ static DataManager *sharedDataManager = nil;
     NSString *responseString = [[NSString alloc] initWithData:[request responseData] encoding:NSUTF8StringEncoding];
     NSArray *responseDict = [responseString JSONValue];
     
-    self.latestMovies = [[NSMutableArray alloc] init];
+    //Not reallocating the array because this should only be used to add to it after GetHomeScreen
+    //latestMovies = [NSMutableArray new];
+    
     
     for (NSDictionary *latestMovieDict in responseDict) {
        // for (int i = 0; i < 10; i++) {
@@ -219,8 +225,9 @@ static DataManager *sharedDataManager = nil;
                               currentUser.userID,
                               @"AuthId",
                               @"20",
-                              @"TopNumber", nil];
+                              @"Number", nil];
         ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETHOMESCREEN andDict:dict];
+        request.timeOutSeconds = 300;
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(getHomeScreenDidReceiveResponse:)];
         [request startAsynchronous];
@@ -467,6 +474,8 @@ static DataManager *sharedDataManager = nil;
                        andDelegate:self];
 }
 
+- (void) getFacebookFriendsForCurrentUserDidReceiveResponse:(ASIHTTPRequest *)request { }
+
 - (void) getAppUsersForFacebookFriends {
     NSMutableArray *fbFriends = [[NSMutableArray alloc] init];
     
@@ -535,7 +544,14 @@ static DataManager *sharedDataManager = nil;
                               currentUser.userID, 
                               @"AuthId", 
                               user.userID, 
-                              @"UserId", nil];
+                              @"UserId",
+                              @"20",
+                              @"Number",
+                              @"0",
+                              @"StartPos",
+                              @"0",
+                              @"SortBy",
+                              nil];
         ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETRATINGSFORUSER andDict:dict];
         [request setDelegate:self];
         [request setDidFinishSelector:@selector(getRatingsForUserDidReceiveResponse:)];
@@ -565,12 +581,33 @@ static DataManager *sharedDataManager = nil;
     }
 }
 
+- (void) getRatingsForUser:(MSUser *)user From:(int)from Amound:(int)num SortedBy:(NSString *)latestOrHighest {
+    if ((user != nil) && (currentUser != nil)) {
+        NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                              currentUser.userID,
+                              @"AuthId",
+                              user.userID,
+                              @"UserId",
+                              @"20",
+                              @"Number",
+                              [NSString stringWithFormat:@"%d", from],
+                              @"StartPos",
+                              latestOrHighest,
+                              @"SortBy", nil];
+        ASIHTTPRequest *request = [self requestWithURL:WS_URL_GETRATINGSFORUSER andDict:dict];
+        [request setDelegate:self];
+        [request setDidFinishSelector:@selector(getRatingsForUserDidReceiveResponse:)];
+        [request startAsynchronous];
+    }
+}
+
 - (MSRating *) ratingFromDict:(NSDictionary *)dict {
     MSRating *rating = [[MSRating alloc] init];
     rating.ratingID = [dict objectForKey:@"Id"];
     rating.ratingLevel = [[dict objectForKey:@"RatingLevel"] floatValue];
     rating.userID = [dict objectForKey:@"UserId"];
     rating.comment = [dict objectForKey:@"Comment"];
+    rating.timestamp = [self mfDateFromDotNetJSONString:[dict objectForKey:@"Timestamp"]];
     
     rating.movie = [self movieFromDict:[dict objectForKey:@"Movie"]];
     
